@@ -2,6 +2,7 @@ const globalStyle = {
     // colors
     colorPrimary: '#484848',
     colorSecondary: '#ED4A88',
+    greenPrimary: '#4BB991',
 
     // fonts
     mavenRegular: 'MavenPro_400Regular',

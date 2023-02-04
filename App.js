@@ -3,13 +3,12 @@ import { StyleSheet, View } from 'react-native';
 import  AppLoading from 'expo-app-loading';
 
 import globalStyle from './global/styles';
-
 import MyMedicaments from './pages/MyMedicaments';
+import CustomerDrawer from './components/CustomDrawer';
 
 // menu navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
 
 import {
   useFonts,
@@ -38,7 +37,27 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Drawer.Navigator useLegacyImplementation>
+      <Drawer.Navigator drawerContent={props => <CustomerDrawer {...props} />} useLegacyImplementation 
+        screenOptions={
+          {
+            headerStyle: {
+              backgroundColor: globalStyle.greenPrimary,
+            },
+            headerShown: true,
+            headerTitleStyle: {
+              display: 'none'
+            },
+
+            headerTintColor: '#fff',
+            drawerActiveBackgroundColor: globalStyle.greenPrimary,
+            drawerActiveTintColor: '#fff',
+            drawerLabelStyle: {
+              fontFamily: globalStyle.mavenMedium,
+              fontSize: 15,
+            }
+          }
+        }
+      >
         <Drawer.Screen name="Home" component={MyMedicamentsConfigStyle} />
         <Drawer.Screen name="Meus Medicamentos" component={MyMedicamentsConfigStyle} />
       </Drawer.Navigator>
