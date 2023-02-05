@@ -4,6 +4,7 @@ import React, {useState, useEffect} from 'react';
 import TitlePage from '../components/TitlePage';
 import MedicamentCard from '../components/MedicamentCard';
 import Button from '../components/Button';
+import LoadingCustom from '../components/LoadingCustom';
 
 import globalStyle from '../global/styles';
 
@@ -24,24 +25,28 @@ export default function MyMedicaments({userId}){
         })
     }, []);
 
-    return(
-        <View>
-            <View style={styles.wrapper}>
-                <View style={styles.containerMedicamentCard}>
-                    <TitlePage title="Meus Medicamentos" />
-                    {
-                        allMedicamentsActive.map(function(eachMedicament){
-                            return(
-                                <MedicamentCard key={eachMedicament._id} name={eachMedicament.name} dosage={eachMedicament.dosage} time={eachMedicament.allTimes[0]} />
-                                // <Text key={eachMedicament._id}>{eachMedicament.name}</Text>
-                            )
-                        })
-                    }
-                    <Button styleCustom={styles.button} cta="+" linkRedirect="/add" />
-                </View>
-            </View>
-        </View>
-    )
+
+    if(allMedicamentsActive.length > 0){
+        console.log(allMedicamentsActive)
+        return(
+            <View style={styles.containerMedicamentCard}>
+                <TitlePage title="Meus Medicamentos" />
+                {
+                    allMedicamentsActive.map(function(eachMedicament){
+                        return(
+                            <MedicamentCard key={eachMedicament._id} name={eachMedicament.name} dosage={eachMedicament.dosage} time={eachMedicament.allTimes[0]} />
+                            // <Text key={eachMedicament._id}>{eachMedicament.name}</Text>
+                        )
+                    })
+                }
+                <Button styleCustom={styles.button} cta="+" linkRedirect="/add" />
+            </View> 
+        )
+    }else {
+        return(
+            <LoadingCustom /> 
+        )
+    }
 };
 
 const styles = StyleSheet.create({

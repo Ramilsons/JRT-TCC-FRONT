@@ -1,14 +1,17 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
 
 import  AppLoading from 'expo-app-loading';
 
 import globalStyle from './global/styles';
 import MyMedicaments from './pages/MyMedicaments';
 import CustomerDrawer from './components/CustomDrawer';
+import Header from './components/Header';
 
 // menu navigation
-import { NavigationContainer } from '@react-navigation/native';
+import { DrawerActions, NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+
+import { useState } from 'react';
 
 import {
   useFonts,
@@ -31,6 +34,8 @@ export default function App() {
     MavenPro_700Bold,
   });
 
+  let [showMenu, setShowMenu] = useState(false);
+
   if(!fontsLoaded)   {
     return <AppLoading />;
   }
@@ -40,14 +45,8 @@ export default function App() {
       <Drawer.Navigator drawerContent={props => <CustomerDrawer {...props} />} useLegacyImplementation 
         screenOptions={
           {
-            headerStyle: {
-              backgroundColor: globalStyle.greenPrimary,
-            },
-            headerShown: true,
-            headerTitleStyle: {
-              display: 'none'
-            },
 
+            headerShown: showMenu,
             headerTintColor: '#fff',
             drawerActiveBackgroundColor: globalStyle.greenPrimary,
             drawerActiveTintColor: '#fff',
@@ -65,13 +64,16 @@ export default function App() {
   );
 }
 
-function MyMedicamentsConfigStyle(){
+function MyMedicamentsConfigStyle({ navigation }){
   return(
-    <View style={styles.container}> 
-    <View>
-      <MyMedicaments userId="6373b0718eba0b12262c4d72" />
+    <SafeAreaView style={{flex: 1}}>
+      <Header functionOpen={navigation} />
+      <View style={styles.container}> 
+      <View>
+        <MyMedicaments userId="6373b0718eba0b12262c4d72" />
+      </View>
     </View>
-  </View>
+  </SafeAreaView>
   )
 }
 
