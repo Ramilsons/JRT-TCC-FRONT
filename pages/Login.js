@@ -1,7 +1,7 @@
-import { View, Text, Image, TextInput } from 'react-native';
+import { View, Image } from 'react-native';
 import globalStyle from '../global/styles';
-import TitleAccount from '../components/TitleAccount';
 import InputCPF from '../components/InputCPF';
+import TitleAuthentication from '../components/TitleAuthentication';
 
 export default function Login(){
     return(
@@ -10,7 +10,7 @@ export default function Login(){
                 source={require('../assets/images/login-banner.png')}
                 style={{width: globalStyle.maxWidth, height: 230}}
             />
-            <TitleAccount title="Entrar na conta" />
+            <TitleAuthentication customTitle="Entrar na conta" />
             <InputCPF />
         </View>
     )

@@ -1,15 +1,16 @@
-import { Text, StyleSheet  } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import globalStyle from '../global/styles';
 
-export default function TitleAccount(props){
+export default function TitleAuthentication(props){
     return(
-        <Text style={styles.text}>{props.title}</Text>
+        <View>
+            <Text style={styles.text}>{props.customTitle}</Text>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     text: {
-        alignSelf: 'left',
         fontSize: 29,
         marginTop: 15,
         fontFamily: globalStyle.mavenMedium,
