@@ -6,14 +6,13 @@ import globalStyle from './global/styles';
 import MyMedicaments from './pages/MyMedicaments';
 import CustomerDrawer from './components/CustomDrawer';
 import Header from './components/Header';
+import Login from './pages/Login';
 
 // menu navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { useState } from 'react';
-
-import {useAuth0, Auth0Provider} from 'react-native-auth0';
 
 import {
   useFonts,
@@ -43,28 +42,26 @@ export default function App() {
   }
 
   return (
-    <Auth0Provider domain={"dev-xpdrvj2vqnftvshz.us.auth0.com"} clientId={"kfQlOx7pWuVLGB7r4VyE4lL1tX1D4ybP"}>
-      <NavigationContainer>
-        <Drawer.Navigator drawerContent={props => <CustomerDrawer {...props} />} useLegacyImplementation 
-          screenOptions={
-            {
+    <NavigationContainer>
+      <Drawer.Navigator drawerContent={props => <CustomerDrawer {...props} />} useLegacyImplementation 
+        screenOptions={
+          {
 
-              headerShown: showMenu,
-              headerTintColor: '#fff',
-              drawerActiveBackgroundColor: globalStyle.greenPrimary,
-              drawerActiveTintColor: '#fff',
-              drawerLabelStyle: {
-                fontFamily: globalStyle.mavenMedium,
-                fontSize: 15,
-              }
+            headerShown: showMenu,
+            headerTintColor: '#fff',
+            drawerActiveBackgroundColor: globalStyle.greenPrimary,
+            drawerActiveTintColor: '#fff',
+            drawerLabelStyle: {
+              fontFamily: globalStyle.mavenMedium,
+              fontSize: 15,
             }
           }
-        >
-          <Drawer.Screen name="Home" component={MyMedicamentsConfigStyle} />
-          <Drawer.Screen name="Meus Medicamentos" component={MyMedicamentsConfigStyle} />
-        </Drawer.Navigator>
-      </NavigationContainer>
-    </Auth0Provider>
+        }
+      >
+        <Drawer.Screen name="Login" component={LoginConfigStyle} />
+        <Drawer.Screen name="Meus Medicamentos" component={MyMedicamentsConfigStyle} />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -75,26 +72,23 @@ function MyMedicamentsConfigStyle({ navigation }){
       <View style={styles.container}> 
         <View>
           <MyMedicaments userId="6373b0718eba0b12262c4d72" />
-          <LoginButton />
         </View>
       </View>
   </SafeAreaView>
   )
 }
 
-
-const LoginButton = () => {
-  const {authorize} = useAuth0();
-
-  const onPress = async () => {
-      try {
-          await authorize();
-      } catch (e) {
-          console.log(e);
-      }
-  };
-
-  return <Button onPress={onPress} title="Log in" />
+function LoginConfigStyle({ navigation }){
+  return(
+    <SafeAreaView style={{flex: 1}}>
+      <Header functionOpen={navigation} />
+      <View style={styles.container}> 
+        <View>
+          <Login />
+        </View>
+      </View>
+  </SafeAreaView>
+  )
 }
 
 const styles = StyleSheet.create({
