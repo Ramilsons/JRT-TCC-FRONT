@@ -1,29 +1,38 @@
-import { Text, View, StyleSheet } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import { Text, View, StyleSheet, Linking } from 'react-native';
+import React, {useState, useEffect, useContext} from 'react';
 
 import TitlePage from '../components/TitlePage';
 import MedicamentCard from '../components/MedicamentCard';
-import Button from '../components/Button';
+import AddButton from '../components/AddButton';
 import LoadingCustom from '../components/LoadingCustom';
+import { useNavigation } from "@react-navigation/native";
 
 import globalStyle from '../global/styles';
 
-
 import axios from 'axios';
 
-export default function MyMedicaments({userId}){
-    const [allMedicamentsActive, setAllMedicamentsActive] = useState([]);
+import { IsLogged } from './../contexts/IsLoggedContext';
 
-    useEffect(function(){
-        axios.get(`https://jrt-medicamentos.onrender.com/medicaments/${userId}`)
-        .then((response) => {
-            console.log(response.data)
-            setAllMedicamentsActive(response.data);
-        })
-        .catch((e) => {
-            console.log('houve um erro 1: '+e);
-        })
-    }, []);
+export default function MyMedicaments(){
+    const { userInfos } = useContext(IsLogged);
+    const [allMedicamentsActive, setAllMedicamentsActive] = useState([]);
+    const navigation = useNavigation();
+
+    console.log(userInfos)
+    if(userInfos.isLogged){
+        useEffect(function(){
+            axios.get(`https://jrt-medicamentos.onrender.com/medicaments/${userInfos.id}`)
+            .then((response) => {
+                console.log(response.data)
+                setAllMedicamentsActive(response.data);
+            })
+            .catch((e) => {
+                console.log('houve um erro 1: '+e);
+            })
+        }, []);
+    }else{
+       navigation.navigate("Login")
+    }
 
 
     if(allMedicamentsActive.length > 0){
@@ -39,7 +48,7 @@ export default function MyMedicaments({userId}){
                         )
                     })
                 }
-                <Button styleCustom={styles.button} cta="+" linkRedirect="/add" />
+                <AddButton styleCustom={styles.button} cta="+" linkRedirect="/add" />
             </View> 
         )
     }else {

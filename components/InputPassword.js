@@ -1,27 +1,27 @@
-import { TextInputMask } from 'react-native-masked-text'
 import { useState } from 'react'
-import { StyleSheet, Image, View } from 'react-native';
+import { StyleSheet, Image, TextInput, View } from 'react-native';
 import inputWithIcon from '../global/styles/inputWithIcon';
 
 export default function InputCPF(props){
+
     return(
         <View style={styles.container}>
-            <TextInputMask
-                type={'cpf'}
+            <TextInput
                 value={props.variable}
                 onChangeText={text => {
                     props.valueToSet(text);
                 }}
                 style={styles.input}
-                placeholder='Digite seu CPF'
+                placeholder='Digite sua senha'
+                secureTextEntry={true}
             />
             <Image 
-                source={require('../assets/images/key.png')}
-                style={styles.icon}
+                source={require('../assets/images/lock.png')}
+                style={[styles.icon, {height: 27, width: 21}]}
             />
         </View>
     )
 }
 
 
-const styles = StyleSheet.create(inputWithIcon);
+const styles = StyleSheet.create(inputWithIcon)

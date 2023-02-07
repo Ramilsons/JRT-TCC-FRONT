@@ -1,9 +1,9 @@
-import { Linking, Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import globalStyle from '../global/styles/index'
 
-export default function Button(props){
+export default function ButtonPrimary(props){
     return(
-        <Text style={[styles.button, props.styleCustom]} onPress={() => {Linking.openURL(props.linkRedirect)}}>
+        <Text style={[styles.button]} onPress={() => {props.callBackFunction()}}>
             <Text style={styles.text}>{props.cta}</Text>
         </Text>
     )
@@ -16,18 +16,18 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 45,
-        height: 45,
-        fontSize: 30,
+        width: 245,
+        height: 40,
+        fontSize: 15,
         marginTop: 35,
         borderRadius: 6,
         marginLeft: 'auto',
+        marginRight: 'auto',
+        textAlignVertical: 'center',
     },
 
     text: {
-        height: '100%',
         textAlign: 'center',
-        flex: 1,
-        alignSelf: 'center',
+        fontFamily: globalStyle.mavenBold
     }
 })

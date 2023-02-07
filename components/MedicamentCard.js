@@ -1,6 +1,5 @@
 import { View, Pressable, Text, StyleSheet } from 'react-native';
 import globalStyle from '../global/styles/index'
-import Button from './Button';
 
 export default function MedicamentCard(props){
     return(

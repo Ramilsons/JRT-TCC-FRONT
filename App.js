@@ -24,6 +24,7 @@ import {
   MavenPro_900Black,
 } from '@expo-google-fonts/maven-pro';
 
+import IsLoggedProvider from './contexts/IsLoggedContext';
 
 const Drawer = createDrawerNavigator();
 
@@ -43,24 +44,26 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Drawer.Navigator drawerContent={props => <CustomerDrawer {...props} />} useLegacyImplementation 
-        screenOptions={
-          {
+      <IsLoggedProvider>
+        <Drawer.Navigator drawerContent={props => <CustomerDrawer {...props} />} useLegacyImplementation 
+          screenOptions={
+            {
 
-            headerShown: showMenu,
-            headerTintColor: '#fff',
-            drawerActiveBackgroundColor: globalStyle.greenPrimary,
-            drawerActiveTintColor: '#fff',
-            drawerLabelStyle: {
-              fontFamily: globalStyle.mavenMedium,
-              fontSize: 15,
+              headerShown: showMenu,
+              headerTintColor: '#fff',
+              drawerActiveBackgroundColor: globalStyle.greenPrimary,
+              drawerActiveTintColor: '#fff',
+              drawerLabelStyle: {
+                fontFamily: globalStyle.mavenMedium,
+                fontSize: 15,
+              }
             }
           }
-        }
-      >
-        <Drawer.Screen name="Login" component={LoginConfigStyle} />
-        <Drawer.Screen name="Meus Medicamentos" component={MyMedicamentsConfigStyle} />
-      </Drawer.Navigator>
+        >
+          <Drawer.Screen name="Login" component={LoginConfigStyle} />
+          <Drawer.Screen name="Meus Medicamentos" component={MyMedicamentsConfigStyle} />
+        </Drawer.Navigator>
+      </IsLoggedProvider>
     </NavigationContainer>
   );
 }
@@ -71,7 +74,7 @@ function MyMedicamentsConfigStyle({ navigation }){
       <Header functionOpen={navigation} />
       <View style={styles.container}> 
         <View>
-          <MyMedicaments userId="6373b0718eba0b12262c4d72" />
+          <MyMedicaments />
         </View>
       </View>
   </SafeAreaView>
@@ -81,7 +84,6 @@ function MyMedicamentsConfigStyle({ navigation }){
 function LoginConfigStyle({ navigation }){
   return(
     <SafeAreaView style={{flex: 1}}>
-      <Header functionOpen={navigation} />
       <View style={styles.container}> 
         <View>
           <Login />

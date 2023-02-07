@@ -1,9 +1,23 @@
 import { View, Image } from 'react-native';
 import globalStyle from '../global/styles';
-import InputCPF from '../components/InputCPF';
 import TitleAuthentication from '../components/TitleAuthentication';
+import InputCPF from '../components/InputCPF';
+import InputPassword from '../components/InputPassword';
+import ButtonPrimary from '../components/ButtonPrimary';
+
+import { useState, useContext } from 'react';
+import { IsLogged } from '../contexts/IsLoggedContext';
 
 export default function Login(){
+    const [cpf, setCpf] = useState('');
+    const [password, setPassword] = useState('');
+
+    const { signIn } = useContext(IsLogged);
+
+    function sendData(){
+        signIn(cpf, password)
+    }
+
     return(
         <View>
             <Image
@@ -11,7 +25,9 @@ export default function Login(){
                 style={{width: globalStyle.maxWidth, height: 230}}
             />
             <TitleAuthentication customTitle="Entrar na conta" />
-            <InputCPF />
+            <InputCPF variable={cpf} valueToSet={setCpf} />
+            <InputPassword  variable={password} valueToSet={setPassword} />
+            <ButtonPrimary cta="Entrar" callBackFunction={sendData} />
         </View>
     )
 }
