@@ -1,12 +1,15 @@
-import { StyleSheet, View, SafeAreaView, Button } from 'react-native';
+import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 
 import  AppLoading from 'expo-app-loading';
 
 import globalStyle from './global/styles';
+
 import MyMedicaments from './pages/MyMedicaments';
+import Login from './pages/Login';
+import NewMedicament from './pages/NewMedicament';
+
 import CustomerDrawer from './components/CustomDrawer';
 import Header from './components/Header';
-import Login from './pages/Login';
 
 // menu navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -60,13 +63,36 @@ export default function App() {
             }
           }
         >
-          <Drawer.Screen name="Login" component={LoginConfigStyle} />
+          <Drawer.Screen name="Login"  component={LoginConfigStyle} options={({ route, navigation }) => {
+              return {
+                swipeEnabled: false,
+                drawerLabel: () => null,
+                drawerItemStyle: { display: 'none' }
+              };
+            }}
+          />
+          <Drawer.Screen name="Home" component={HomeConfigStyle} />
           <Drawer.Screen name="Meus Medicamentos" component={MyMedicamentsConfigStyle} />
+          <Drawer.Screen name="Novo Medicamento" component={NewMedicamentConfigStyle} />
         </Drawer.Navigator>
       </IsLoggedProvider>
     </NavigationContainer>
   );
 }
+
+function HomeConfigStyle({ navigation }){
+  return(
+    <SafeAreaView style={{flex: 1}}>
+      <Header functionOpen={navigation} />
+      <View style={styles.container}> 
+        <View>
+          <Text>Home</Text>
+        </View>
+      </View>
+  </SafeAreaView>
+  )
+}
+
 
 function MyMedicamentsConfigStyle({ navigation }){
   return(
@@ -82,11 +108,25 @@ function MyMedicamentsConfigStyle({ navigation }){
 }
 
 function LoginConfigStyle({ navigation }){
+
   return(
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}> 
         <View>
           <Login />
+        </View>
+      </View>
+  </SafeAreaView>
+  )
+}
+
+function NewMedicamentConfigStyle({ navigation }){
+  return(
+    <SafeAreaView style={{flex: 1}}>
+      <Header functionOpen={navigation} />
+      <View style={styles.container}> 
+        <View>
+          <NewMedicament />
         </View>
       </View>
   </SafeAreaView>

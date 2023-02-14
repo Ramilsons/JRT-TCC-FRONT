@@ -15,10 +15,9 @@ import { IsLogged } from './../contexts/IsLoggedContext';
 
 export default function MyMedicaments(){
     const { userInfos } = useContext(IsLogged);
-    const [allMedicamentsActive, setAllMedicamentsActive] = useState([]);
+    const [allMedicamentsActive, setAllMedicamentsActive] = useState(null);
     const navigation = useNavigation();
 
-    console.log(userInfos)
     if(userInfos.isLogged){
         useEffect(function(){
             axios.get(`https://jrt-medicamentos.onrender.com/medicaments/${userInfos.id}`)
@@ -35,7 +34,11 @@ export default function MyMedicaments(){
     }
 
 
-    if(allMedicamentsActive.length > 0){
+    if(allMedicamentsActive == undefined) {
+        return(
+            <LoadingCustom /> 
+        )
+    }else if(allMedicamentsActive.length > 0){
         console.log(allMedicamentsActive)
         return(
             <View style={styles.containerMedicamentCard}>
@@ -44,16 +47,19 @@ export default function MyMedicaments(){
                     allMedicamentsActive.map(function(eachMedicament){
                         return(
                             <MedicamentCard key={eachMedicament._id} name={eachMedicament.name} dosage={eachMedicament.dosage} time={eachMedicament.allTimes[0]} />
-                            // <Text key={eachMedicament._id}>{eachMedicament.name}</Text>
                         )
                     })
                 }
                 <AddButton styleCustom={styles.button} cta="+" linkRedirect="/add" />
             </View> 
         )
-    }else {
+    }else{
         return(
-            <LoadingCustom /> 
+            <View style={styles.wrapper}>
+                <Text style={styles.text}>Você não possui nenhum medicamento ativo.</Text>
+                <Text style={styles.text}>Cadastre um agora mesmo!</Text>
+                <AddButton styleCustom={styles.button} cta="+" linkRedirect="/add" />
+            </View>
         )
     }
 };
@@ -67,4 +73,13 @@ const styles = StyleSheet.create({
     wrapper: {
         maxWidth: globalStyle.maxWidth,
     },
+
+    text: {
+        fontSize: 18,
+        textAlign: 'center',
+        marginBottom: 20,
+        fontWeight: '500',
+        color: globalStyle.greenPrimary,
+        fontFamily: globalStyle.mavenMedium
+    }
 })

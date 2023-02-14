@@ -9,13 +9,15 @@ import { useState, useContext } from 'react';
 import { IsLogged } from '../contexts/IsLoggedContext';
 
 export default function Login(){
-    const [cpf, setCpf] = useState('');
-    const [password, setPassword] = useState('');
+    const [cpf, setCpf] = useState('25475559139');
+    const [password, setPassword] = useState('123456789');
+    const [isLoad, setIsLoad] = useState(false);
 
     const { signIn } = useContext(IsLogged);
 
     function sendData(){
-        signIn(cpf, password)
+       signIn(cpf, password);
+       setIsLoad(true);
     }
 
     return(
@@ -27,7 +29,7 @@ export default function Login(){
             <TitleAuthentication customTitle="Entrar na conta" />
             <InputCPF variable={cpf} valueToSet={setCpf} />
             <InputPassword  variable={password} valueToSet={setPassword} />
-            <ButtonPrimary cta="Entrar" callBackFunction={sendData} />
+            <ButtonPrimary cta="Entrar" callBackFunction={sendData} stateIsLoad={isLoad} />
         </View>
     )
 }
