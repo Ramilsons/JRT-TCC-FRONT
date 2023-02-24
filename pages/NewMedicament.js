@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Text, TextInput, View, ScrollView, StyleSheet } from "react-native";
 import TitlePage from './../components/TitlePage';
 import ButtonPrimary from "./../components/ButtonPrimary";

@@ -7,6 +7,7 @@ import globalStyle from './global/styles';
 import MyMedicaments from './pages/MyMedicaments';
 import Login from './pages/Login';
 import NewMedicament from './pages/NewMedicament';
+import Profile from './pages/Profile';
 
 import CustomerDrawer from './components/CustomDrawer';
 import Header from './components/Header';
@@ -74,6 +75,7 @@ export default function App() {
           <Drawer.Screen name="Home" component={HomeConfigStyle} />
           <Drawer.Screen name="Meus Medicamentos" component={MyMedicamentsConfigStyle} />
           <Drawer.Screen name="Novo Medicamento" component={NewMedicamentConfigStyle} />
+          <Drawer.Screen name="Perfil" component={perfilConfigStyle} />
         </Drawer.Navigator>
       </IsLoggedProvider>
     </NavigationContainer>
@@ -127,6 +129,19 @@ function NewMedicamentConfigStyle({ navigation }){
       <View style={styles.container}> 
         <View>
           <NewMedicament />
+        </View>
+      </View>
+  </SafeAreaView>
+  )
+}
+
+function perfilConfigStyle({ navigation }){
+  return(
+    <SafeAreaView style={{flex: 1}}>
+      <Header functionOpen={navigation} />
+      <View style={styles.container}> 
+        <View>
+          <Profile/>
         </View>
       </View>
   </SafeAreaView>
