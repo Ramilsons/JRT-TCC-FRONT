@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { StyleSheet, Image, TextInput, View } from 'react-native';
 import inputWithIcon from '../global/styles/inputWithIcon';
 

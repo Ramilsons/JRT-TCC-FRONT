@@ -24,7 +24,7 @@ function IsLoggedProvider({children}){
                         setUserInfos({
                             id: response.data[0]._id,
                             name: response.data[0].name,
-                            cpf: response. data[0].cpf,
+                            cpf: response.data[0].cpf,
                             phone: response.data[0].phone,
                             isLogged: true
                         })

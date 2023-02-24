@@ -27,5 +27,27 @@ export default {
     icon: {
         height: 24,
         width: 24,
+    },
+    active: {
+        opacity: 1,
+    },
+    inactive: {
+        opacity: 0
+    },
+    containerActive: {
+        marginBottom: 3,
+        borderColor: 'transparent',
+    },
+    label: {
+        fontFamily: globalStyle.mavenBold,
+        fontSize: 14,
+        marginBottom: 7,
+        color: '#423F3F'
+    },
+    placeholderActive: {
+        color: '#C5C5C5'
+    },
+    placeholderInactive: {
+        color: '#8C8C8C'
     }
 }

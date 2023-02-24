@@ -1,12 +1,16 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
-import { useContext, useState, useEffect } from 'react'
-import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
-import globalStyle from '../global/styles'
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { useContext } from 'react';
+import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import { useNavigation } from "@react-navigation/native";
+
+import globalStyle from '../global/styles';
 
 import { IsLogged } from './../contexts/IsLoggedContext';
 
+
 export default function CustomDrawer(props) {
     const { userInfos } = useContext(IsLogged);
+    const navigation = useNavigation();
 
     return(
         <View style={{flex:1}}>
@@ -20,7 +24,11 @@ export default function CustomDrawer(props) {
                 </View>
             </DrawerContentScrollView>
             <View>
-                <Text></Text>
+                <Text style={styles.logout} onPress={
+                    () => {
+                        navigation.navigate('Login');
+                    }
+                }>Sair da conta</Text>
             </View>
         </View>
     )
@@ -36,5 +44,13 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 20,
         backgroundColor: '#fff'
+    },
+
+    logout: {
+        color: '#9C9C9C', 
+        fontFamily: globalStyle.mavenMedium,
+        fontSize: 15,
+        textAlign: 'center',
+        marginBottom: 30,
     }
 })

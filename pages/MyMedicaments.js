@@ -58,7 +58,7 @@ export default function MyMedicaments(){
             <View style={styles.wrapper}>
                 <Text style={styles.text}>Você não possui nenhum medicamento ativo.</Text>
                 <Text style={styles.text}>Cadastre um agora mesmo!</Text>
-                <AddButton styleCustom={styles.button} cta="+" linkRedirect="/add" />
+                <AddButton styleCustom={styles.button} cta="+" linkRedirect="Novo Medicamento" />
             </View>
         )
     }

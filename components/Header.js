@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         paddingTop: 10,
         height: 60,
-        marginTop: StatusBar.currentHeight
+        marginTop: StatusBar.currentHeight,
+        zIndex: 3
     },
 
     wrapper: {

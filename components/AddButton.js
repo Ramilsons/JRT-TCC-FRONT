@@ -1,9 +1,13 @@
 import { Linking, Text, StyleSheet } from 'react-native';
 import globalStyle from '../global/styles/index'
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function AddButton(props){
+    const navigation = useNavigation();
+
     return(
-        <Text style={[styles.button, props.styleCustom]} onPress={() => {Linking.openURL(props.linkRedirect)}}>
+        <Text style={[styles.button, props.styleCustom]} onPress={() => {navigation.navigate(props.linkRedirect)}}>
             <Text style={styles.text}>{props.cta}</Text>
         </Text>
     )

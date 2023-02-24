@@ -1,0 +1,1 @@
+execute "npm install" or "yarn install" and "npx expo start"
