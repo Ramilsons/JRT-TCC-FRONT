@@ -30,6 +30,8 @@ function IsLoggedProvider({children}){
                         })
 
                         navigation.navigate("Meus Medicamentos");
+
+                        
                     }else{
                         console.log('CPF ou senha não encontrado');
                     }

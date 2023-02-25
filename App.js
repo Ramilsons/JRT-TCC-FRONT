@@ -4,10 +4,10 @@ import  AppLoading from 'expo-app-loading';
 
 import globalStyle from './global/styles';
 
-import MyMedicaments from './pages/MyMedicaments';
-import Login from './pages/Login';
-import NewMedicament from './pages/NewMedicament';
-import Profile from './pages/Profile';
+import MyMedicaments from './screens/MyMedicaments';
+import Login from './screens/Login';
+import NewMedicament from './screens/NewMedicament';
+import Profile from './screens/Profile';
 
 import CustomerDrawer from './components/CustomDrawer';
 import Header from './components/Header';
