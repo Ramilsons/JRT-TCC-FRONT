@@ -4,7 +4,7 @@ export default function LoadingCustom(){
     return(
         <View style={styles.container}>
             <Image 
-                source={require('../assets/images/load-green-2.gif')}
+                source={require('../../assets/images/load-green-2.gif')}
                 style={styles.image}
             />
         </View>

@@ -4,13 +4,13 @@ import  AppLoading from 'expo-app-loading';
 
 import globalStyle from './global/styles';
 
-import MyMedicaments from './screens/MyMedicaments';
-import Login from './screens/Login';
-import NewMedicament from './screens/NewMedicament';
-import Profile from './screens/Profile';
+import MyMedicaments from './src/screens/MyMedicaments';
+import Login from './src/screens/Login';
+import NewMedicament from './src/screens/NewMedicament';
+import Profile from './src/screens/Profile';
 
-import CustomerDrawer from './components/CustomDrawer';
-import Header from './components/Header';
+import CustomerDrawer from './src/components/CustomDrawer';
+import Header from './src/components/Header';
 
 // menu navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -28,7 +28,7 @@ import {
   MavenPro_900Black,
 } from '@expo-google-fonts/maven-pro';
 
-import IsLoggedProvider from './contexts/IsLoggedContext';
+import IsLoggedProvider from './src/contexts/IsLoggedContext';
 
 const Drawer = createDrawerNavigator();
 

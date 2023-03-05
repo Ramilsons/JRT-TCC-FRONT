@@ -1,5 +1,5 @@
 import { View, Image, StatusBar, StyleSheet, TouchableHighlight } from 'react-native';
-import globalStyle from '../global/styles';
+import globalStyle from './../../global/styles/index';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
 
 export default function Header({ functionOpen }){
@@ -10,13 +10,13 @@ export default function Header({ functionOpen }){
             <View style={styles.wrapper}>
                 <TouchableHighlight underlayColor='transparent' onPress={() => functionOpen.dispatch(DrawerActions.openDrawer())}>
                     <Image 
-                        source={require('../assets/images/menu-hamburguer.png')}
+                        source={require('../../assets/images/menu-hamburguer.png')}
                         style={styles.menu}
                     />
                 </TouchableHighlight>
                 <TouchableHighlight onPress={() => navigation.navigate("Home")}>
                     <Image 
-                        source={require('../assets/images/white-logo.png')}
+                        source={require('../../assets/images/white-logo.png')}
                         style={styles.menu}
                     />
                 </TouchableHighlight>

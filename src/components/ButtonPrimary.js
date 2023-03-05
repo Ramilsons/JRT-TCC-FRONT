@@ -1,10 +1,10 @@
 import { Text, StyleSheet, Image } from 'react-native';
-import globalStyle from '../global/styles/index'
+import globalStyle from './../../global/styles/index'
 
 export default function ButtonPrimary(props){
     return(
         <Text style={[styles.button]} onPress={() => {props.callBackFunction()}}>
-            { props.stateIsLoad ? <Image source={require('./../assets/images/load-white.gif')} style={styles.loadGif}  /> : <Text style={styles.text}>{props.cta}</Text>}
+            { props.stateIsLoad ? <Image source={require('./../../assets/images/load-white.gif')} style={styles.loadGif}  /> : <Text style={styles.text}>{props.cta}</Text>}
         </Text>
     )
 }

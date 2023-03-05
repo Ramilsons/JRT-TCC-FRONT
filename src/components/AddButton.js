@@ -1,5 +1,5 @@
 import { Linking, Text, StyleSheet } from 'react-native';
-import globalStyle from '../global/styles/index'
+import globalStyle from './../../global/styles/index'
 import { useNavigation } from '@react-navigation/native';
 
 

@@ -7,7 +7,7 @@ import AddButton from '../components/AddButton';
 import LoadingCustom from '../components/LoadingCustom';
 import { useNavigation } from "@react-navigation/native";
 
-import globalStyle from '../global/styles';
+import globalStyle from './../../global/styles/index';
 
 import axios from 'axios';
 
@@ -20,15 +20,17 @@ export default function MyMedicaments(){
 
     if(userInfos.isLogged){
         useEffect(function(){
-            axios.get(`https://jrt-medicamentos.onrender.com/medicaments/${userInfos.id}`)
-            .then((response) => {
-                console.log(response.data)
-                setAllMedicamentsActive(response.data);
-            })
-            .catch((e) => {
-                console.log('houve um erro 1: '+e);
-            })
-        }, []);
+            navigation.addListener('focus', () => {
+                axios.get(`https://jrt-medicamentos.onrender.com/medicaments/${userInfos.id}`)
+                .then((response) => {
+                    console.log(response.data)
+                    setAllMedicamentsActive(response.data);
+                })
+                .catch((e) => {
+                    console.log('houve um erro 1: '+e);
+                })
+            });
+        }, [navigation]);
     }else{
        navigation.navigate("Login")
     }
@@ -50,7 +52,7 @@ export default function MyMedicaments(){
                         )
                     })
                 }
-                <AddButton styleCustom={styles.button} cta="+" linkRedirect="/add" />
+                <AddButton styleCustom={styles.button} cta="+" linkRedirect="Novo Medicamento" />
             </View> 
         )
     }else{
@@ -68,6 +70,7 @@ const styles = StyleSheet.create({
     containerMedicamentCard: {
         alignItems: 'center',
         justifyContent: 'center',
+        width: globalStyle.maxWidth
     },
 
     wrapper: {

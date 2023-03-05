@@ -1,17 +1,28 @@
 import { View, Image } from 'react-native';
-import globalStyle from '../global/styles';
+import globalStyle from './../../global/styles/index';
 import TitleAuthentication from '../components/TitleAuthentication';
 import InputCPF from '../components/InputCPF';
 import InputPassword from '../components/InputPassword';
 import ButtonPrimary from '../components/ButtonPrimary';
 
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { IsLogged } from '../contexts/IsLoggedContext';
+
+import { useNavigation } from "@react-navigation/native";
 
 export default function Login(){
     const [cpf, setCpf] = useState('25475559139');
     const [password, setPassword] = useState('123456789');
     const [isLoad, setIsLoad] = useState(false);
+
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        navigation.addListener('focus', () => {
+            setIsLoad(false);
+        })
+    }, [navigation])
+    
 
     const { signIn } = useContext(IsLogged);
 
@@ -23,7 +34,7 @@ export default function Login(){
     return(
         <View>
             <Image
-                source={require('../assets/images/login-banner.png')}
+                source={require('../../assets/images/login-banner.png')}
                 style={{width: globalStyle.maxWidth, height: 230}}
             />
             <TitleAuthentication customTitle="Entrar na conta" />

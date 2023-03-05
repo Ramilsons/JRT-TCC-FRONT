@@ -1,5 +1,5 @@
 import { View, Pressable, Text, StyleSheet } from 'react-native';
-import globalStyle from '../global/styles/index'
+import globalStyle from './../../global/styles/index.js';
 
 export default function MedicamentCard(props){
     return(
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'column',
-        height: 90
+        height: 90,
     },
 
     containersInfos: {

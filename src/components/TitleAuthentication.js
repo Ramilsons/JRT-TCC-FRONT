@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-import globalStyle from '../global/styles';
+import globalStyle from './../../global/styles/index';
 
 export default function TitleAuthentication(props){
     return(

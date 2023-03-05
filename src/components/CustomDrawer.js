@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { useNavigation } from "@react-navigation/native";
 
-import globalStyle from '../global/styles';
+import globalStyle from './../../global/styles/index';
 
 import { IsLogged } from './../contexts/IsLoggedContext';
 

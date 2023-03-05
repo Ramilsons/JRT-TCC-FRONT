@@ -1,7 +1,7 @@
 import { TextInputMask } from 'react-native-masked-text'
 import { useState } from 'react'
 import { StyleSheet, Image, View } from 'react-native';
-import inputWithIcon from '../global/styles/inputWithIcon';
+import inputWithIcon from './../../global/styles/inputWithIcon';
 
 export default function InputCPF(props){
     return(
@@ -16,7 +16,7 @@ export default function InputCPF(props){
                 placeholder='Digite seu CPF'
             />
             <Image 
-                source={require('../assets/images/key.png')}
+                source={require('../../assets/images/key.png')}
                 style={styles.icon}
             />
         </View>

@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
-import inputWithIcon from '../global/styles/inputWithIcon';
+import inputWithIcon from './../../global/styles/inputWithIcon';
 
 export default function DropdownInput(props){
     function changeStateList(){
@@ -22,7 +22,7 @@ export default function DropdownInput(props){
                     </View>
         
                     <Image 
-                        source={require('../assets/images/arrow.png')}
+                        source={require('../../assets/images/arrow.png')}
                         style={[styles.icon, {height: 27, width: 21}, props.listVisibility == true ? styles.inactive : styles.active]}
                     />
                 </TouchableOpacity>

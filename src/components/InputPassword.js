@@ -1,5 +1,5 @@
 import { StyleSheet, Image, TextInput, View } from 'react-native';
-import inputWithIcon from '../global/styles/inputWithIcon';
+import inputWithIcon from './../../global/styles/inputWithIcon';
 
 export default function InputCPF(props){
 
@@ -15,7 +15,7 @@ export default function InputCPF(props){
                 secureTextEntry={true}
             />
             <Image 
-                source={require('../assets/images/lock.png')}
+                source={require('../../assets/images/lock.png')}
                 style={[styles.icon, {height: 27, width: 21}]}
             />
         </View>
