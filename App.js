@@ -8,6 +8,7 @@ import MyMedicaments from './src/screens/MyMedicaments';
 import Login from './src/screens/Login';
 import NewMedicament from './src/screens/NewMedicament';
 import Profile from './src/screens/Profile';
+import EditMedicament from './src/screens/EditMedicaments';
 
 import CustomerDrawer from './src/components/CustomDrawer';
 import Header from './src/components/Header';
@@ -75,7 +76,8 @@ export default function App() {
           <Drawer.Screen name="Home" component={HomeConfigStyle} />
           <Drawer.Screen name="Meus Medicamentos" component={MyMedicamentsConfigStyle} />
           <Drawer.Screen name="Novo Medicamento" component={NewMedicamentConfigStyle} />
-          <Drawer.Screen name="Perfil" component={perfilConfigStyle} />
+          <Drawer.Screen name="Perfil" component={PerfilConfigStyle} />
+          <Drawer.Screen name="Editar Medicamento" component={EditMedicamentConfigStyle} />
         </Drawer.Navigator>
       </IsLoggedProvider>
     </NavigationContainer>
@@ -135,7 +137,7 @@ function NewMedicamentConfigStyle({ navigation }){
   )
 }
 
-function perfilConfigStyle({ navigation }){
+function PerfilConfigStyle({ navigation }){
   return(
     <SafeAreaView style={{flex: 1}}>
       <Header functionOpen={navigation} />
@@ -147,6 +149,20 @@ function perfilConfigStyle({ navigation }){
   </SafeAreaView>
   )
 }
+
+function EditMedicamentConfigStyle({ route, navigation }){
+  return(
+    <SafeAreaView style={{flex: 1}}>
+      <Header functionOpen={navigation} />
+      <View style={styles.container}> 
+        <View>
+          <EditMedicament idParam={route.params.medicamentId}  />
+        </View>
+      </View>
+  </SafeAreaView>
+  )
+}
+
 
 const styles = StyleSheet.create({
   container: {

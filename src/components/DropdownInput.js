@@ -3,8 +3,7 @@ import inputWithIcon from './../../global/styles/inputWithIcon';
 
 export default function DropdownInput(props){
     function changeStateList(){
-        props.setListVisibility(true)
-        console.log(props.listVisibility);
+        props.setListVisibility(true);
     }
 
     function changeStateInput(){

@@ -23,7 +23,6 @@ export default function MyMedicaments(){
             navigation.addListener('focus', () => {
                 axios.get(`https://jrt-medicamentos.onrender.com/medicaments/${userInfos.id}`)
                 .then((response) => {
-                    console.log(response.data)
                     setAllMedicamentsActive(response.data);
                 })
                 .catch((e) => {
@@ -41,14 +40,13 @@ export default function MyMedicaments(){
             <LoadingCustom /> 
         )
     }else if(allMedicamentsActive.length > 0){
-        console.log(allMedicamentsActive)
         return(
             <View style={styles.containerMedicamentCard}>
                 <TitlePage title="Meus Medicamentos" />
                 {
                     allMedicamentsActive.map(function(eachMedicament){
                         return(
-                            <MedicamentCard key={eachMedicament._id} name={eachMedicament.name} dosage={eachMedicament.dosage} time={eachMedicament.allTimes[0]} />
+                            <MedicamentCard key={eachMedicament._id} name={eachMedicament.name} id={eachMedicament._id} dosage={eachMedicament.dosage} time={eachMedicament.allTimes[0]} />
                         )
                     })
                 }

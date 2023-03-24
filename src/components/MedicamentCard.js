@@ -1,13 +1,22 @@
 import { View, Pressable, Text, StyleSheet } from 'react-native';
 import globalStyle from './../../global/styles/index.js';
 
+import { useEffect } from 'react';
+import { useNavigation } from "@react-navigation/native";
+
 export default function MedicamentCard(props){
+    const navigation = useNavigation();
+
+    function redirectToSpecificMedicament(){
+        navigation.navigate('Editar Medicamento', { medicamentId: props.id })
+    }
+
     return(
         <View style={styles.container}>
             <View style={styles.containersInfos}>
                 <Text style={styles.name}>{props.name}</Text>
                 <Pressable>
-                    <Text style={styles.editButton}>Editar</Text>
+                    <Text onPress={redirectToSpecificMedicament} style={styles.editButton}>Editar</Text>
                 </Pressable>
             </View>
             <View style={styles.containersInfos}>

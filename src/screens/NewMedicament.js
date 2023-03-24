@@ -41,7 +41,7 @@ export default function NewMedicament(){
         function formatDate(dateDefault){
             let slicedDate = dateDefault.split('/');
 
-            return new Date(`${slicedDate[2]}-${slicedDate[1] - 1}-${slicedDate[0]}`); 
+            return new Date(`${slicedDate[2]}-${slicedDate[1]}-${slicedDate[0]}`); 
         }
 
         axios.post('https://jrt-medicamentos.onrender.com/medicaments', { 

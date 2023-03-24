@@ -18,8 +18,6 @@ function IsLoggedProvider({children}){
         if(cpf !== ''){
             axios.get(`https://jrt-medicamentos.onrender.com/users/cpf/${cpf}`)
                 .then(response => {
-                    console.log(response.data[0]);
-
                     if(password == response.data[0].password){
                         setUserInfos({
                             id: response.data[0]._id,
@@ -30,8 +28,6 @@ function IsLoggedProvider({children}){
                         })
 
                         navigation.navigate("Meus Medicamentos");
-
-                        
                     }else{
                         console.log('CPF ou senha não encontrado');
                     }
