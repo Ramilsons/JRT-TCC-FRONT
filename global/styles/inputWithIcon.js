@@ -28,6 +28,10 @@ export default {
         height: 24,
         width: 24,
     },
+    iconCalendar: {
+        width: 18,
+        height:25
+    },
     active: {
         opacity: 1,
     },

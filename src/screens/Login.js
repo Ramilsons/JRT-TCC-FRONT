@@ -4,11 +4,12 @@ import TitleAuthentication from '../components/TitleAuthentication';
 import InputCPF from '../components/InputCPF';
 import InputPassword from '../components/InputPassword';
 import ButtonPrimary from '../components/ButtonPrimary';
+/*import LinkAuthentication from '../components/linkAuthentication';*/
 
 import { useState, useContext, useEffect } from 'react';
 import { IsLogged } from '../contexts/IsLoggedContext';
 
-import { useNavigation } from "@react-navigation/native";
+import { Link, useNavigation } from "@react-navigation/native";
 
 export default function Login(){
     const [cpf, setCpf] = useState('25475559139');
@@ -23,7 +24,6 @@ export default function Login(){
         })
     }, [navigation])
     
-
     const { signIn } = useContext(IsLogged);
 
     function sendData(){
@@ -41,6 +41,7 @@ export default function Login(){
             <InputCPF variable={cpf} valueToSet={setCpf} />
             <InputPassword  variable={password} valueToSet={setPassword} />
             <ButtonPrimary cta="Entrar" callBackFunction={sendData} stateIsLoad={isLoad} />
+            {/*<LinkAuthentication customText="Não tem uma conta? Clique aqui." targetScreen="Novo Usuario" />*/}
         </View>
     )
 }

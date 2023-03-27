@@ -16,7 +16,7 @@ export default function CustomDrawer(props) {
         <View style={{flex:1}}>
             <DrawerContentScrollView {...props} contentContainerStyle={{backgroundColor: globalStyle.greenPrimary}}>
                 <View style={{padding: 20}}>
-                    <Image source={'https://images.nightcafe.studio//assets/profile.png'} style={{height: 80, width: 80, borderRadius: 40, marginBottom: 10, padding: 20}} />
+                    <Image source={userInfos.imageProfilePath ? userInfos.imageProfilePath :'https://images.nightcafe.studio//assets/profile.png'} style={{height: 80, width: 80, borderRadius: 40, marginBottom: 10, padding: 20}} />
                     <Text style={styles.name}>{userInfos.name}</Text>
                 </View>
                 <View style={styles.viewLinks}>
