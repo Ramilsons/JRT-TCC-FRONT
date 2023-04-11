@@ -4,7 +4,7 @@ import TitleAuthentication from '../components/TitleAuthentication';
 import InputCPF from '../components/InputCPF';
 import InputPassword from '../components/InputPassword';
 import ButtonPrimary from '../components/ButtonPrimary';
-/*import LinkAuthentication from '../components/linkAuthentication';*/
+import LinkAuthentication from '../components/LinkAuthentication';
 
 import { useState, useContext, useEffect } from 'react';
 import { IsLogged } from '../contexts/IsLoggedContext';
@@ -41,7 +41,7 @@ export default function Login(){
             <InputCPF variable={cpf} valueToSet={setCpf} />
             <InputPassword  variable={password} valueToSet={setPassword} />
             <ButtonPrimary cta="Entrar" callBackFunction={sendData} stateIsLoad={isLoad} />
-            {/*<LinkAuthentication customText="Não tem uma conta? Clique aqui." targetScreen="Novo Usuario" />*/}
+            <LinkAuthentication customText="Não tem uma conta? Clique aqui." targetScreen="Novo Usuario" />
         </View>
     )
 }

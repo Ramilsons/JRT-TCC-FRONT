@@ -9,7 +9,7 @@ export default function InputCPF(props){
             <TextInputMask
                 type={'cpf'}
                 value={props.variable}
-                onChangeText={text => {
+                onChangeText={(text) => {
                     props.valueToSet(text);
                 }}
                 style={styles.input}

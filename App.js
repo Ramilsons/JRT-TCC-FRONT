@@ -6,7 +6,7 @@ import globalStyle from './global/styles';
 
 import MyMedicaments from './src/screens/MyMedicaments';
 import Login from './src/screens/Login';
-/*import NewUser from './src/screens/NewUser';*/
+import NewUser from './src/screens/NewUser';
 import NewMedicament from './src/screens/NewMedicament';
 import Profile from './src/screens/Profile';
 import EditMedicament from './src/screens/EditMedicaments';
@@ -86,6 +86,14 @@ export default function App() {
               };
             }}
           />
+          <Drawer.Screen name="Novo Usuario"  component={NewUserConfigStyle} options={({ route, navigation }) => {
+                return {
+                  swipeEnabled: false,
+                  drawerLabel: () => null,
+                  drawerItemStyle: { display: 'none' }
+                };
+              }}
+            />
         </Drawer.Navigator>
       </IsLoggedProvider>
     </NavigationContainer>
@@ -171,7 +179,6 @@ function EditMedicamentConfigStyle({ route, navigation }){
   )
 }
 
-/*
 function NewUserConfigStyle({ route, navigation }){
   return(
     <SafeAreaView style={{flex: 1}}>
@@ -182,7 +189,7 @@ function NewUserConfigStyle({ route, navigation }){
       </View>
   </SafeAreaView>
   )
-}*/
+}
 
 
 const styles = StyleSheet.create({
