@@ -6,6 +6,7 @@ import globalStyle from './global/styles';
 
 import MyMedicaments from './src/screens/MyMedicaments';
 import Login from './src/screens/Login';
+import NewUser from './src/screens/NewUser';
 import NewMedicament from './src/screens/NewMedicament';
 import Profile from './src/screens/Profile';
 import EditMedicament from './src/screens/EditMedicaments';
@@ -77,7 +78,22 @@ export default function App() {
           <Drawer.Screen name="Meus Medicamentos" component={MyMedicamentsConfigStyle} />
           <Drawer.Screen name="Novo Medicamento" component={NewMedicamentConfigStyle} />
           <Drawer.Screen name="Perfil" component={PerfilConfigStyle} />
-          <Drawer.Screen name="Editar Medicamento" component={EditMedicamentConfigStyle} />
+          <Drawer.Screen name="Editar Medicamento" component={EditMedicamentConfigStyle} options={({ route, navigation }) => {
+              return {
+                swipeEnabled: false,
+                drawerLabel: () => null,
+                drawerItemStyle: { display: 'none' }
+              };
+            }}
+          />
+          <Drawer.Screen name="Novo Usuario"  component={NewUserConfigStyle} options={({ route, navigation }) => {
+                return {
+                  swipeEnabled: false,
+                  drawerLabel: () => null,
+                  drawerItemStyle: { display: 'none' }
+                };
+              }}
+            />
         </Drawer.Navigator>
       </IsLoggedProvider>
     </NavigationContainer>
@@ -157,6 +173,18 @@ function EditMedicamentConfigStyle({ route, navigation }){
       <View style={styles.container}> 
         <View>
           <EditMedicament idParam={route.params.medicamentId}  />
+        </View>
+      </View>
+  </SafeAreaView>
+  )
+}
+
+function NewUserConfigStyle({ route, navigation }){
+  return(
+    <SafeAreaView style={{flex: 1}}>
+      <View style={styles.container}> 
+        <View>
+          <NewUser />
         </View>
       </View>
   </SafeAreaView>

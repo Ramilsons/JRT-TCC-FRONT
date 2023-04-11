@@ -19,11 +19,17 @@ function IsLoggedProvider({children}){
             axios.get(`https://jrt-medicamentos.onrender.com/users/cpf/${cpf}`)
                 .then(response => {
                     if(password == response.data[0].password){
+                        
+                        let imagePath = '';
+                        if(response.data[0].imagePath){
+                            imagePath = 'https://jrt-medicamentos.onrender.com/uploads/'+response.data[0].imagePath;
+                        }
                         setUserInfos({
                             id: response.data[0]._id,
                             name: response.data[0].name,
                             cpf: response.data[0].cpf,
                             phone: response.data[0].phone,
+                            imageProfilePath: imagePath,
                             isLogged: true
                         })
 

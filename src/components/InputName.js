@@ -1,7 +1,7 @@
 import { StyleSheet, Image, TextInput, View } from 'react-native';
 import inputWithIcon from './../../global/styles/inputWithIcon';
 
-export default function InputPassword(props){
+export default function InputName(props){
 
     return(
         <View style={styles.container}>
@@ -11,12 +11,11 @@ export default function InputPassword(props){
                     props.valueToSet(text);
                 }}
                 style={styles.input}
-                placeholder={props.customPlaceholder ? props.customPlaceholder : 'Digite sua senha'}
-                secureTextEntry={true}
+                placeholder="Digite seu nome"
             />
             <Image 
-                source={require('../../assets/images/lock.png')}
-                style={[styles.icon, {height: 27, width: 21}]}
+                source={require('../../assets/images/name.png')}
+                style={styles.icon}
             />
         </View>
     )
