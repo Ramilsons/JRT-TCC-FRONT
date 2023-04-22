@@ -24,8 +24,7 @@ export default function NewMedicament(){
 
     const [dropdownList, setDropdownList] = useState(false);
 
-    function saveMedicament() {
-    
+    useEffect(() => {
         if(dropdownValueActive == '1x por dia'){
             setDropdownValueActiveFormatted('de 24 em 24 horas');
         }else if(dropdownValueActive == '2x por dia'){
@@ -37,7 +36,9 @@ export default function NewMedicament(){
         }else if(dropdownValueActive == '6x por dia'){
             setDropdownValueActiveFormatted('de 4 em 4 horas');
         }
+    }, [dropdownValueActive]);
 
+    function saveMedicament() {
         function formatDate(dateDefault){
             let slicedDate = dateDefault.split('/');
 

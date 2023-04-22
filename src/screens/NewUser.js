@@ -1,5 +1,5 @@
 
-import { View, Button, StyleSheet, Text } from 'react-native';
+import { View, Button, StyleSheet, Pressable, Text } from 'react-native';
 
 import { useContext, useEffect, useState } from 'react';
 import { IsLogged } from '../contexts/IsLoggedContext';
@@ -65,17 +65,14 @@ export default function NewUser() {
             quality: 1,
         })
 
-        console.log(result.assets)
-
         if(!result.canceled){
             setImage(result.assets[0].uri);
         }
     };
 
     async function sendData(){
-        console.log(finallyDate);
 
-        if(confirmPassword ===  password){
+        if(confirmPassword === password){
             let formData = new FormData();
             formData.append('name', name)
             formData.append('password', password)
@@ -124,10 +121,14 @@ export default function NewUser() {
                 <InputBirthDate valueToSet={setBirthDate} variable={birthDate}  />
                 <InputPassword valueToSet={setPassword} variable={password}  />
                 <InputPassword valueToSet={setConfirmPassword} customPlaceholder="Digite a senha novamente" variable={confirmPassword}  />
-                <Button style={{ backgroundColor: 'transparent', borderWidth: 2, borderColor: globalStyle.colorPrimary, color: globalStyle.colorPrimary}} title="Escolher uma foto" onPress={pickImage} />
-                <Text  style={image.length > 0 ? styles.textName : styles.hidden }>Você já selecionou uma foto.</Text>
+                <Pressable onPress={pickImage}>
+                    <View style={{ backgroundColor: 'transparent', borderRadius: 5, borderWidth: 2, borderColor: globalStyle.colorSecondary, color: globalStyle.colorSecondary}}>
+                        <Text style={{textAlign: 'center', fontFamily: globalStyle.mavenBold, lineHeight: 40 ,height: 40, fontSize: 15, color: globalStyle.colorSecondary}}>Escolher uma foto</Text>
+                    </View>
+                </Pressable>
+                <Text style={image.length > 0 ? styles.textName : styles.hidden }>Foto selecionada!</Text>
             </View>
-            <ButtonPrimary cta="Entrar" callBackFunction={sendData} stateIsLoad={isLoad} />
+            <ButtonPrimary cta="Criar conta" callBackFunction={sendData} stateIsLoad={isLoad} />
             <LinkAuthentication customText="Já tem uma conta? Clique aqui." targetScreen="Login" />
         </View>
     )

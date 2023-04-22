@@ -45,8 +45,39 @@ function IsLoggedProvider({children}){
         }
     }
 
+    function uploadInfos(cpf){
+        console.log('executou upload de infos')
+        cpf = cpf.replace('-', '');
+        cpf = cpf.replace('.', '');
+        cpf = cpf.replace('.', '');
+    
+        if(cpf !== ''){
+            axios.get(`https://jrt-medicamentos.onrender.com/users/cpf/${cpf}`)
+                .then(response => {   
+                    console.log(response);
+                    let imagePath = '';
+                    if(response.data[0].imagePath){
+                        imagePath = 'https://jrt-medicamentos.onrender.com/uploads/'+response.data[0].imagePath;
+                    }
+                    setUserInfos({
+                        id: response.data[0]._id,
+                        name: response.data[0].name,
+                        cpf: response.data[0].cpf,
+                        phone: response.data[0].phone,
+                        imageProfilePath: imagePath,
+                        isLogged: true
+                    })
+
+                    navigation.navigate("Perfil");
+                })
+                .catch(e => {
+                    console.log(e);
+                })
+        } 
+    }
+
     return(
-        <IsLogged.Provider value={{userInfos, signIn}}>
+        <IsLogged.Provider value={{userInfos, signIn, uploadInfos}}>
             {children}
         </IsLogged.Provider>
     )

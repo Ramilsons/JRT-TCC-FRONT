@@ -59,7 +59,7 @@ export default function EditMedicament(props){
   
     const [dropdownList, setDropdownList] = useState(false);  
 
-    function updateMedicament() {
+    useEffect(() => {
         if(dropdownValueActive == '1x por dia'){
             setDropdownValueActiveFormatted('de 24 em 24 horas');
         }else if(dropdownValueActive == '2x por dia'){
@@ -71,13 +71,16 @@ export default function EditMedicament(props){
         }else if(dropdownValueActive == '6x por dia'){
             setDropdownValueActiveFormatted('de 4 em 4 horas');
         }
+    }, [dropdownValueActive])
 
+    function updateMedicament() {
         function formatDate(dateDefault){
             let slicedDate = dateDefault.split('/');
 
             return new Date(`${slicedDate[2]}-${slicedDate[1]}-${slicedDate[0]}`); 
         }
 
+        console.log(dropdownValueActiveFormatted)
         axios.put(`https://jrt-medicamentos.onrender.com/medicaments/${navigation.getState().routes[5].params.medicamentId}`, { 
             name: nameMedicament, 
             timeInit: timeInit, 

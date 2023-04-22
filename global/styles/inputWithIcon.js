@@ -53,5 +53,12 @@ export default {
     },
     placeholderInactive: {
         color: '#8C8C8C'
+    },
+    editButton: {
+        backgroundColor: 'transparent',
+        textDecorationLine: 'underline',
+        fontSize: 13,
+        color: globalStyle.colorSecondary,
+        fontFamily: globalStyle.mavenRegular
     }
 }

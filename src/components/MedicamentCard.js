@@ -1,5 +1,6 @@
 import { View, Pressable, Text, StyleSheet } from 'react-native';
 import globalStyle from './../../global/styles/index.js';
+import EditMedicamentStyle from "../../global/styles/inputWithIcon";
 
 import { useEffect } from 'react';
 import { useNavigation } from "@react-navigation/native";
@@ -16,7 +17,7 @@ export default function MedicamentCard(props){
             <View style={styles.containersInfos}>
                 <Text style={styles.name}>{props.name}</Text>
                 <Pressable>
-                    <Text onPress={redirectToSpecificMedicament} style={styles.editButton}>Editar</Text>
+                    <Text onPress={redirectToSpecificMedicament} style={EditMedicamentStyle.editButton}>Editar</Text>
                 </Pressable>
             </View>
             <View style={styles.containersInfos}>
@@ -70,14 +71,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#9F9F9F',
         fontWeight: '300',
-        fontFamily: globalStyle.mavenRegular
-    },
-
-    editButton: {
-        backgroundColor: 'transparent',
-        textDecorationLine: 'underline',
-        fontSize: 13,
-        color: globalStyle.colorSecondary,
         fontFamily: globalStyle.mavenRegular
     }
 })
