@@ -1,4 +1,4 @@
-import { View, Image } from 'react-native';
+import { View, Image, StatusBar } from 'react-native';
 import globalStyle from './../../global/styles/index';
 import TitleAuthentication from '../components/TitleAuthentication';
 import InputCPF from '../components/InputCPF';
@@ -32,7 +32,7 @@ export default function Login(){
     }
 
     return(
-        <View>
+        <View style={{marginTop: StatusBar.currentHeight}} >
             <Image
                 source={require('../../assets/images/login-banner.png')}
                 style={{width: globalStyle.maxWidth, height: 230}}

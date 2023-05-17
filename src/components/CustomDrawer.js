@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, StatusBar } from 'react-native';
 import { useContext } from 'react';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { useNavigation } from "@react-navigation/native";
@@ -13,7 +13,7 @@ export default function CustomDrawer(props) {
     const navigation = useNavigation();
 
     return(
-        <View style={{flex:1}}>
+        <View style={{flex:1, marginTop: StatusBar.currentHeight}}>
             <DrawerContentScrollView {...props} contentContainerStyle={{backgroundColor: globalStyle.greenPrimary}}>
                 <View style={{padding: 20}}>
                     <Image source={{uri: userInfos.imageProfilePath ? userInfos.imageProfilePath : 'https://images.nightcafe.studio//assets/profile.png'}} style={{height: 80, width: 80, borderRadius: 40, marginBottom: 10, padding: 20}} />

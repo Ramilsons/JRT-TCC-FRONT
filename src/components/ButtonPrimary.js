@@ -1,11 +1,11 @@
-import { Text, StyleSheet, Image } from 'react-native';
+import { Text, StyleSheet, Image, Pressable } from 'react-native';
 import globalStyle from './../../global/styles/index'
 
 export default function ButtonPrimary(props){
     return(
-        <Text style={[styles.button]} onPress={() => {props.callBackFunction()}}>
+        <Pressable style={[styles.button]} onPress={() => {props.callBackFunction()}}>
             { props.stateIsLoad ? <Image source={require('./../../assets/images/load-white.gif')} style={styles.loadGif}  /> : <Text style={styles.text}>{props.cta}</Text>}
-        </Text>
+        </Pressable>
     )
 }
 
@@ -28,11 +28,15 @@ const styles = StyleSheet.create({
 
     text: {
         textAlign: 'center',
-        fontFamily: globalStyle.mavenBold
+        fontFamily: globalStyle.mavenBold,
+        lineHeight: 15,
+        color: '#ffffff'
     },
 
     loadGif: {
+        verticalAlign: 'center',
         width: 25,
-        height: 25
+        height: 25,
+        alignSelf: 'center'
     }
 })

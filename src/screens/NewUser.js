@@ -1,5 +1,5 @@
 
-import { View, Button, StyleSheet, Pressable, Text } from 'react-native';
+import { View, StyleSheet, Pressable, Text, StatusBar } from 'react-native';
 
 import { useContext, useEffect, useState } from 'react';
 import { IsLogged } from '../contexts/IsLoggedContext';
@@ -112,7 +112,7 @@ export default function NewUser() {
     }
 
     return (
-        <View>
+        <View style={{marginTop: StatusBar.currentHeight}}>
             <TitleAuthentication customTitle="Criar uma conta" />
             <View>
                 <InputName valueToSet={setName} variable={name}  />

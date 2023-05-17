@@ -1,4 +1,4 @@
-import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
+import { StyleSheet, View, SafeAreaView, Text, StatusBar } from 'react-native';
 
 import  AppLoading from 'expo-app-loading';
 
@@ -109,7 +109,7 @@ function HomeConfigStyle({ navigation }){
           <Text>Home</Text>
         </View>
       </View>
-  </SafeAreaView>
+    </SafeAreaView>
   )
 }
 
@@ -123,7 +123,7 @@ function MyMedicamentsConfigStyle({ navigation }){
           <MyMedicaments />
         </View>
       </View>
-  </SafeAreaView>
+    </SafeAreaView>
   )
 }
 
@@ -136,7 +136,7 @@ function LoginConfigStyle({ navigation }){
           <Login />
         </View>
       </View>
-  </SafeAreaView>
+    </SafeAreaView>
   )
 }
 
@@ -149,7 +149,7 @@ function NewMedicamentConfigStyle({ navigation }){
           <NewMedicament />
         </View>
       </View>
-  </SafeAreaView>
+    </SafeAreaView>
   )
 }
 
@@ -162,7 +162,7 @@ function PerfilConfigStyle({ navigation }){
           <Profile/>
         </View>
       </View>
-  </SafeAreaView>
+    </SafeAreaView>
   )
 }
 
@@ -175,7 +175,7 @@ function EditMedicamentConfigStyle({ route, navigation }){
           <EditMedicament idParam={route.params.medicamentId}  />
         </View>
       </View>
-  </SafeAreaView>
+    </SafeAreaView>
   )
 }
 
@@ -187,7 +187,7 @@ function NewUserConfigStyle({ route, navigation }){
           <NewUser />
         </View>
       </View>
-  </SafeAreaView>
+    </SafeAreaView>
   )
 }
 
