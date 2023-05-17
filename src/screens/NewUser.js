@@ -6,6 +6,7 @@ import { IsLogged } from '../contexts/IsLoggedContext';
 
 import globalStyle from '../../global/styles';
 
+import DelimiterTop from '../components/DelimiterTop';
 import TitleAuthentication from '../components/TitleAuthentication';
 import LinkAuthentication from '../components/LinkAuthentication';
 import InputCPF from '../components/InputCPF';
@@ -112,7 +113,8 @@ export default function NewUser() {
     }
 
     return (
-        <View style={{marginTop: StatusBar.currentHeight}}>
+        <View>
+            <DelimiterTop />
             <TitleAuthentication customTitle="Criar uma conta" />
             <View>
                 <InputName valueToSet={setName} variable={name}  />

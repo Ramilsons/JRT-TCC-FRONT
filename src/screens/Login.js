@@ -5,6 +5,7 @@ import InputCPF from '../components/InputCPF';
 import InputPassword from '../components/InputPassword';
 import ButtonPrimary from '../components/ButtonPrimary';
 import LinkAuthentication from '../components/LinkAuthentication';
+import DelimiterTop from '../components/DelimiterTop';
 
 import { useState, useContext, useEffect } from 'react';
 import { IsLogged } from '../contexts/IsLoggedContext';
@@ -32,7 +33,8 @@ export default function Login(){
     }
 
     return(
-        <View style={{marginTop: StatusBar.currentHeight}} >
+        <View>
+            <DelimiterTop />
             <Image
                 source={require('../../assets/images/login-banner.png')}
                 style={{width: globalStyle.maxWidth, height: 230}}
