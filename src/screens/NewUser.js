@@ -120,7 +120,7 @@ export default function NewUser() {
                 <InputName valueToSet={setName} variable={name}  />
                 <InputCPF valueToSet={setCpf} variable={cpf}  />
                 <InputPhone valueToSet={setPhone} variable={phone}  />
-                <InputBirthDate valueToSet={setBirthDate} variable={birthDate}  />
+                <InputBirthDate icon={true} placeholder={'Digite sua data de nascimento'} valueToSet={setBirthDate} variable={birthDate}  />
                 <InputPassword valueToSet={setPassword} variable={password}  />
                 <InputPassword valueToSet={setConfirmPassword} customPlaceholder="Digite a senha novamente" variable={confirmPassword}  />
                 <Pressable onPress={pickImage}>

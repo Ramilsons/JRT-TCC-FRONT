@@ -8,7 +8,7 @@ export default function LinkAuthentication(props) {
 
     return(
         <View>
-            <TouchableHighlight onPress={() => navigation.navigate(props.targetScreen)}>
+            <TouchableHighlight underlayColor='none' onPress={() => navigation.navigate(props.targetScreen)}>
                 <Text style={styles.linkButton}>{props.customText}</Text>
             </TouchableHighlight>
         </View>

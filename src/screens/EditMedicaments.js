@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import TitlePage from './../components/TitlePage';
 import ButtonPrimary from "./../components/ButtonPrimary";
 import DropdownInput from "./../components/DropdownInput";
+import InputBirthDate from "../components/InputBirthDate";
 
 import inputWithIcon from './../../global/styles/inputWithIcon';
 
@@ -25,8 +26,13 @@ export default function EditMedicament(props){
     function formatDateBr(dateOfDataBase) {
         let slicedDate = dateOfDataBase.split('-');
         let month = Number(slicedDate[1]);
+        let day = slicedDate[2].split('T')[0];
 
-        return `${slicedDate[2].split('T')[0]}/${month}/${slicedDate[0]}`;
+        if(month < 10){
+            month = '0'+month;
+        }
+
+        return `${day}/${month}/${slicedDate[0]}`;
     }
 
     useEffect(() => {   
@@ -80,7 +86,6 @@ export default function EditMedicament(props){
             return new Date(`${slicedDate[2]}-${slicedDate[1]}-${slicedDate[0]}`); 
         }
 
-        console.log(dropdownValueActiveFormatted)
         axios.put(`https://jrt-medicamentos.onrender.com/medicaments/${navigation.getState().routes[5].params.medicamentId}`, { 
             name: nameMedicament, 
             timeInit: timeInit, 
@@ -107,8 +112,8 @@ export default function EditMedicament(props){
                 <Text style={styles.label}>Dosagem</Text>
                 <TextInput value={dosage} style={[styles.input, styles.container]} placeholder="" onChangeText={(text) => { setDosage(text) }} />    
 
-                <Text style={styles.label}>Data de finalização</Text>
-                <TextInput value={completationDate} style={[styles.input, styles.container]} placeholder="" onChangeText={(text) => { setCompletationDate(text) }} />      
+                <Text style={styles.label}>Data de finalização</Text>   
+                <InputBirthDate valueToSet={setCompletationDate} variable={completationDate}  />
 
                 <View style={{zIndex: 2, height: 94,}}>
                     <Text style={styles.label}>Frequência</Text>

@@ -10,6 +10,7 @@ import inputWithIcon from './../../global/styles/inputWithIcon';
 
 import axios from "axios";
 import { IsLogged } from './../contexts/IsLoggedContext';
+import InputBirthDate from "../components/InputBirthDate";
 
 export default function NewMedicament(){
     const [dropdownValueActive, setDropdownValueActive] = useState("1x por dia");
@@ -70,10 +71,14 @@ export default function NewMedicament(){
 
                 <Text style={styles.label}>Dosagem</Text>
                 <TextInput value={dosage} style={[styles.input, styles.container]} placeholder="" onChangeText={(text) => { setDosage(text) }} />    
-
-                <Text style={styles.label}>Data de finalização</Text>
-                <TextInput value={completationDate} style={[styles.input, styles.container]} placeholder="14/04/2023" onChangeText={(text) => { setCompletationDate(text) }} />      
-
+                
+                <Text style={styles.label}>Data de finalização</Text>   
+                <InputBirthDate placeholder={"14/04/2024"} valueToSet={setCompletationDate} variable={completationDate}  />
+            
+                {/* 
+                    <Text style={styles.label}>Data de finalização</Text>   
+                    <TextInput value={completationDate} style={[styles.input, styles.container]} placeholder="14/04/2023" onChangeText={(text) => { setCompletationDate(text) }} />      
+                */} 
                 <View style={{zIndex: 2, height: 94,}}>
                         <Text style={styles.label}>Frequência</Text>
                         <ScrollView>
