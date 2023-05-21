@@ -14,7 +14,7 @@ export default function Header({ functionOpen }){
                         style={styles.menu}
                     />
                 </TouchableHighlight>
-                <TouchableHighlight onPress={() => navigation.navigate("Home")}>
+                <TouchableHighlight underlayColor='transparent' onPress={() => navigation.navigate("Home")}>
                     <Image 
                         source={require('../../assets/images/white-logo.png')}
                         style={styles.menu}

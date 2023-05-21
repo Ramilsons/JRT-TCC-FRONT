@@ -67,7 +67,7 @@ export default function MyMedicaments(){
 const styles = StyleSheet.create({
     containerMedicamentCard: {
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         width: globalStyle.maxWidth
     },
 

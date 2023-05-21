@@ -17,7 +17,7 @@ import Header from './src/components/Header';
 // menu navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
+import { ScrollView } from 'react-native-gesture-handler';
 import { useState } from 'react';
 
 import {
@@ -77,7 +77,7 @@ export default function App() {
           <Drawer.Screen name="Home" component={HomeConfigStyle} />
           <Drawer.Screen name="Meus Medicamentos" component={MyMedicamentsConfigStyle} />
           <Drawer.Screen name="Novo Medicamento" component={NewMedicamentConfigStyle} />
-          <Drawer.Screen name="Perfil" component={PerfilConfigStyle} />
+          <Drawer.Screen name="Perfil" component={ProfileConfigStyle} />
           <Drawer.Screen name="Editar Medicamento" component={EditMedicamentConfigStyle} options={({ route, navigation }) => {
               return {
                 swipeEnabled: false,
@@ -113,16 +113,15 @@ function HomeConfigStyle({ navigation }){
   )
 }
 
-
 function MyMedicamentsConfigStyle({ navigation }){
   return(
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, justifyContent: 'flex-start', backgroundColor: '#F6F6F6'}}>
       <Header functionOpen={navigation} />
-      <View style={styles.container}> 
-        <View>
+      <ScrollView> 
+        <View style={[styles.container, {justifyContent: 'flex-start', paddingTop: 50}]}>
           <MyMedicaments />
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }
@@ -153,7 +152,7 @@ function NewMedicamentConfigStyle({ navigation }){
   )
 }
 
-function PerfilConfigStyle({ navigation }){
+function ProfileConfigStyle({ navigation }){
   return(
     <SafeAreaView style={{flex: 1}}>
       <Header functionOpen={navigation} />

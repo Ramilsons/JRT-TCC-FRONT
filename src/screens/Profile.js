@@ -20,6 +20,10 @@ export default function Profile(){
     const { userInfos, uploadInfos } = useContext(IsLogged);
     const navigate = useNavigation();
 
+    function reloadData(){
+        uploadInfos(cpf);
+    }
+
     const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
     const [image, setImage] = useState('');
     const [name, setName] = useState("");
@@ -61,12 +65,13 @@ export default function Profile(){
     }, [navigate])
 
     useEffect(() => {
-        try {
-            (async () => {
-                await editRequest('upload-image');
-            });
-        } catch (e){
-            throw e;
+        if(image.length > 0){
+            try {
+                editRequest('upload-image');
+                reloadData();
+            } catch (e){
+                throw e;
+            }
         }
     }, [image]);
 
@@ -143,11 +148,15 @@ export default function Profile(){
 
         try {
             await axios.put('https://jrt-medicamentos.onrender.com/users', formData, {
-                    headers: {
-                        Accept: 'application/json',
-                        "Content-Type": 'multipart/form-data'
-                    }
+                headers: {
+                    Accept: 'application/json',
+                    "Content-Type": 'multipart/form-data'
+                }
             })
+
+            if(target != 'upload-image'){
+                redirectToHome();
+            }
         } catch(e) {
             throw e;               
         }
@@ -176,11 +185,6 @@ export default function Profile(){
             <View style={{position: 'relative'}}>
                 <Text style={styles.label}>Nome</Text>
                 <TextInput value={name} style={[styles.input, styles.container]} onChangeText={(text) => { setName(text) }} placeholder="" />
-
-                {/*
-                    <Text style={styles.label}>Data de Nascimento</Text>
-                    <TextInput value={birthDate} style={[styles.input, styles.container]} placeholder="14/04/2023" onChangeText={(text) => { setBirthDate(text) }} />      
-                */}
 
                 <Text style={styles.label}>Data de Nascimento</Text>   
                 <InputBirthDate placeholder={birthDate} valueToSet={setBirthDate} variable={birthDate}  />
