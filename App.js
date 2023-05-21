@@ -11,6 +11,7 @@ import NewUser from './src/screens/NewUser';
 import NewMedicament from './src/screens/NewMedicament';
 import Profile from './src/screens/Profile';
 import EditMedicament from './src/screens/EditMedicaments';
+import Tutorial from './src/screens/Tutorial';
 
 import CustomerDrawer from './src/components/CustomDrawer';
 import Header from './src/components/Header';
@@ -126,6 +127,7 @@ export default function App() {
                   };
                 }}
               />
+            <Drawer.Screen name="Como Funciona?" component={TutorialConfigStyle} />
           </Drawer.Navigator>
       </IsLoggedProvider>
     </NavigationContainer>
@@ -206,6 +208,14 @@ function NewUserConfigStyle({ route, navigation }){
           <NewUser />
         </View>
       </View>
+    </SafeAreaView>
+  )
+}
+
+function TutorialConfigStyle({ navigation }){
+  return(
+    <SafeAreaView style={{flex: 1, justifyContent: 'center', backgroundColor: '#fff', paddingBottom: 40}}>
+      <Tutorial />
     </SafeAreaView>
   )
 }
