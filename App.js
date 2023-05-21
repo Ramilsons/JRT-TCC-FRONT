@@ -1,7 +1,8 @@
 import { StyleSheet, View, SafeAreaView, Text, StatusBar } from 'react-native';
 
-import  AppLoading from 'expo-app-loading';
-
+import * as SplashScreen from 'expo-splash-screen';
+import * as Font from 'expo-font'
+''
 import globalStyle from './global/styles';
 
 import MyMedicaments from './src/screens/MyMedicaments';
@@ -18,10 +19,9 @@ import Header from './src/components/Header';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 import {
-  useFonts,
   MavenPro_400Regular,
   MavenPro_500Medium,
   MavenPro_600SemiBold,
@@ -36,57 +36,69 @@ const Drawer = createDrawerNavigator();
 
 
 export default function App() {
-  let [fontsLoaded, error] = useFonts({
-    MavenPro_400Regular,
-    MavenPro_500Medium,
-    MavenPro_700Bold,
-  });
+  const [appReady, setAppReady] = useState(false);
+
+  
+  useEffect(() => {
+    (async () => {
+      try {
+        await SplashScreen.preventAutoHideAsync()
+        await Font.loadAsync({
+          MavenPro_400Regular,
+          MavenPro_500Medium,
+          MavenPro_700Bold
+        })
+      } catch (e) {
+        console.warn(e)
+      } finally {
+        setAppReady(true)
+      }
+    })()
+  }, [])
 
   let [showMenu, setShowMenu] = useState(false);
+  
+  const onLayout = useCallback(() => {
+    if (appReady) {
+      SplashScreen.hideAsync()
+    }
+  }, [appReady])
 
-  if(!fontsLoaded)   {
-    return <AppLoading />;
+  if (!appReady) {
+    return null
   }
 
+  function LoginConfigStyle({ navigation }){
+    return(
+      <SafeAreaView style={{flex: 1}}>
+        <View style={styles.container} onLayout={onLayout}> 
+          <View>
+            <Login />
+          </View>
+        </View>
+      </SafeAreaView>
+    )
+  }
+  
   return (
     <NavigationContainer>
       <IsLoggedProvider>
-        <Drawer.Navigator drawerContent={props => <CustomerDrawer {...props} />} useLegacyImplementation 
-          screenOptions={
-            {
+          <Drawer.Navigator drawerContent={props => <CustomerDrawer {...props} />} useLegacyImplementation 
+            screenOptions={
+              {
 
-              headerShown: showMenu,
-              headerTintColor: '#fff',
-              drawerActiveBackgroundColor: globalStyle.greenPrimary,
-              drawerActiveTintColor: '#fff',
-              drawerLabelStyle: {
-                fontFamily: globalStyle.mavenMedium,
-                fontSize: 15,
+                headerShown: showMenu,
+                headerTintColor: '#fff',
+                drawerActiveBackgroundColor: globalStyle.greenPrimary,
+                drawerActiveTintColor: '#fff',
+                drawerLabelStyle: {
+                  fontFamily: globalStyle.mavenMedium,
+                  fontSize: 15,
+                }
               }
             }
-          }
-        >
-          <Drawer.Screen name="Login"  component={LoginConfigStyle} options={({ route, navigation }) => {
-              return {
-                swipeEnabled: false,
-                drawerLabel: () => null,
-                drawerItemStyle: { display: 'none' }
-              };
-            }}
-          />
-          <Drawer.Screen name="Home" component={HomeConfigStyle} />
-          <Drawer.Screen name="Meus Medicamentos" component={MyMedicamentsConfigStyle} />
-          <Drawer.Screen name="Novo Medicamento" component={NewMedicamentConfigStyle} />
-          <Drawer.Screen name="Perfil" component={ProfileConfigStyle} />
-          <Drawer.Screen name="Editar Medicamento" component={EditMedicamentConfigStyle} options={({ route, navigation }) => {
-              return {
-                swipeEnabled: false,
-                drawerLabel: () => null,
-                drawerItemStyle: { display: 'none' }
-              };
-            }}
-          />
-          <Drawer.Screen name="Novo Usuario"  component={NewUserConfigStyle} options={({ route, navigation }) => {
+          >
+            <Drawer.Screen name="Login"  component={LoginConfigStyle} options={({ route, navigation }) => {
                 return {
                   swipeEnabled: false,
                   drawerLabel: () => null,
@@ -94,7 +106,27 @@ export default function App() {
                 };
               }}
             />
-        </Drawer.Navigator>
+            <Drawer.Screen name="Home" component={HomeConfigStyle} />
+            <Drawer.Screen name="Meus Medicamentos" component={MyMedicamentsConfigStyle} />
+            <Drawer.Screen name="Novo Medicamento" component={NewMedicamentConfigStyle} />
+            <Drawer.Screen name="Perfil" component={ProfileConfigStyle} />
+            <Drawer.Screen name="Editar Medicamento" component={EditMedicamentConfigStyle} options={({ route, navigation }) => {
+                return {
+                  swipeEnabled: false,
+                  drawerLabel: () => null,
+                  drawerItemStyle: { display: 'none' }
+                };
+              }}
+            />
+            <Drawer.Screen name="Novo Usuario"  component={NewUserConfigStyle} options={({ route, navigation }) => {
+                  return {
+                    swipeEnabled: false,
+                    drawerLabel: () => null,
+                    drawerItemStyle: { display: 'none' }
+                  };
+                }}
+              />
+          </Drawer.Navigator>
       </IsLoggedProvider>
     </NavigationContainer>
   );
@@ -126,18 +158,6 @@ function MyMedicamentsConfigStyle({ navigation }){
   )
 }
 
-function LoginConfigStyle({ navigation }){
-
-  return(
-    <SafeAreaView style={{flex: 1}}>
-      <View style={styles.container}> 
-        <View>
-          <Login />
-        </View>
-      </View>
-    </SafeAreaView>
-  )
-}
 
 function NewMedicamentConfigStyle({ navigation }){
   return(
@@ -189,7 +209,6 @@ function NewUserConfigStyle({ route, navigation }){
     </SafeAreaView>
   )
 }
-
 
 const styles = StyleSheet.create({
   container: {
