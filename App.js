@@ -12,6 +12,7 @@ import NewMedicament from './src/screens/NewMedicament';
 import Profile from './src/screens/Profile';
 import EditMedicament from './src/screens/EditMedicaments';
 import Tutorial from './src/screens/Tutorial';
+import Home from './src/screens/Home';
 
 import CustomerDrawer from './src/components/CustomDrawer';
 import Header from './src/components/Header';
@@ -139,9 +140,7 @@ function HomeConfigStyle({ navigation }){
     <SafeAreaView style={{flex: 1}}>
       <Header functionOpen={navigation} />
       <View style={styles.container}> 
-        <View>
-          <Text>Home</Text>
-        </View>
+        <Home />
       </View>
     </SafeAreaView>
   )
