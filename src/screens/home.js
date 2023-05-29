@@ -1,15 +1,26 @@
-import {View} from 'react-native';
-import {Agenda} from 'react-native-calendars';
 
-function Home() {
+import React, {useState} from 'react';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import WeekCalendar from 'react-native-weekly-calendar';
+
+const App: React.FC = () => {
+  const [date
+  ] = useState(new Date());
+
   return (
-    <View style={{flex: 1}}>
-      <Agenda
-        style={{width: 360}}
-        selected={'2023-05-23'}
-      />
-    </View>
+    <SafeAreaView style={styles.safe}>
+      <WeekCalendar  date={date} />
+    </SafeAreaView>
   );
-}
+};
 
-export default Home;
+const styles = StyleSheet.create({
+  safe: {
+   marginTop: 50,
+    flex: 1,
+    backgroundColor: '#f0f',
+    
+  },
+});
+
+export default App;
