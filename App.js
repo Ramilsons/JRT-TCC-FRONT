@@ -12,7 +12,7 @@ import NewMedicament from './src/screens/NewMedicament';
 import Profile from './src/screens/Profile';
 import EditMedicament from './src/screens/EditMedicaments';
 import Tutorial from './src/screens/Tutorial';
-import Home from './src/screens/Home';
+import Home from './src/screens/home';
 
 import CustomerDrawer from './src/components/CustomDrawer';
 import Header from './src/components/Header';
