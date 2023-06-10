@@ -1,5 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
+import TitlePage from '../components/TitlePage';
+import MedicamentCard from '../components/MedicamentCard';
+import AddButton from '../components/AddButton';
+import LoadingCustom from '../components/LoadingCustom';
+import { useNavigation } from "@react-navigation/native";
+import globalStyle from './../../global/styles/index';
+import axios from 'axios';
+import { IsLogged } from './../contexts/IsLoggedContext';
 
 const Calendar = () => {
   const getCurrentMonthYear = () => {
@@ -78,6 +86,7 @@ const Calendar = () => {
     );
   };
 
+ 
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>Bem Vindo!</Text>
@@ -89,12 +98,23 @@ const Calendar = () => {
         renderItem={renderDay}
         keyExtractor={(item, index) => index.toString()}
       />
+      <View style={styles.containerMedicamentCard}>
+
+     <MedicamentCard/>
     </View>
+    </View>
+    
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+
+  containerMedicamentCard: {
+   justifyContent: 'center',
+   alignItems: 'center',
+   marginBottom: 350,  
+},
   
   welcome:{
   marginTop: 20,
@@ -113,7 +133,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
-    backgroundColor: '#FFFAFA',
+    backgroundColor: '#F7F7F7',
     borderTopEndRadius: 30,
     borderTopStartRadius: 30,
     
