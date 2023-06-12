@@ -10,6 +10,7 @@ import globalStyle from '../../global/styles';
 
 import ButtonPrimary from '../components/ButtonPrimary';
 import InputBirthDate from '../components/InputBirthDate';
+import MessageFeedback from "../components/MessageFeedback";
 
 import axios from 'axios';
 import mime from 'mime';
@@ -34,6 +35,11 @@ export default function Profile(){
     const [dayOfBirth, setDayOfBirth] = useState(0);
     const [monthOfBirth, seMonthOfBirth] = useState(0);
     const [yearOfBirth, setYearOfBirth] = useState(0);
+
+    const [messageVisible, setMessageVisible] = useState(false);
+    const [message, setMessage] = useState('');
+    const [typeMessage, setTypeMessage] = useState('');
+
 
     useEffect(() => {
             try {
@@ -128,6 +134,14 @@ export default function Profile(){
     async function editRequest(target){
         let formData = new FormData();
         formData.append('id', userInfos.id);
+
+        function errorMessageConfig() {
+            setTypeMessage('error');
+            setMessage('Preencha corretamente os campos');
+            setMessageVisible(true);
+        
+            setTimeout(() => setMessageVisible(false), 4000);   
+        }
         
         if(target == 'upload-image'){
             formData.append('image', JSON.parse(
@@ -155,57 +169,67 @@ export default function Profile(){
             })
 
             if(target != 'upload-image'){
-                redirectToHome();
+                setTypeMessage('success');
+                setMessage('Dados atualizados com sucesso. Aguarde!');
+                setMessageVisible(true);
+                setTimeout(() => {
+                    setMessageVisible(false)
+                    redirectToHome();
+                }, 3000);  
             }
         } catch(e) {
-            throw e;               
+            errorMessageConfig();
+            throw e;  
         }
     }
         
     return(
-        <View style={{width: globalStyle.maxWidth}}>
-            <View>
-                <Pressable>
-                    <Text onPress={redirectToHome} style={editStyle.editButton}>Voltar para o início</Text>
-                </Pressable>
-            </View>
-            <Text style={Styles.title}>Meus Dados</Text>
+        <View>
+            <View style={{width: globalStyle.maxWidth, paddingTop: 50}}>
+                <View>
+                    <Pressable>
+                        <Text onPress={redirectToHome} style={editStyle.editButton}>Voltar para o início</Text>
+                    </Pressable>
+                </View>
+                <Text style={Styles.title}>Meus Dados</Text>
 
-            <View style={Styles.imageContainer}>
-                <Image 
-                   source={{uri: userInfos.imageProfilePath ? userInfos.imageProfilePath : 'https://images.nightcafe.studio//assets/profile.png'}} style={{height: 95, width: 95, borderRadius: 7, marginBottom: 10, marginTop: 20, marginLeft: 'auto', marginRight: 'auto'}}
-                />
-                <Pressable style={Styles.pressable} onPress={pickImage}>
+                <View style={Styles.imageContainer}>
                     <Image 
-                        source={require('../../assets/changeImage.png')}
-                        style={Styles.iconImage}
+                    source={{uri: userInfos.imageProfilePath ? userInfos.imageProfilePath : 'https://images.nightcafe.studio//assets/profile.png'}} style={{height: 95, width: 95, borderRadius: 7, marginBottom: 10, marginTop: 20, marginLeft: 'auto', marginRight: 'auto'}}
                     />
-                </Pressable>
+                    <Pressable style={Styles.pressable} onPress={pickImage}>
+                        <Image 
+                            source={require('../../assets/changeImage.png')}
+                            style={Styles.iconImage}
+                        />
+                    </Pressable>
+                </View>
+                <View style={{position: 'relative'}}>
+                    <Text style={styles.label}>Nome</Text>
+                    <TextInput value={name} style={[styles.input, styles.container]} onChangeText={(text) => { setName(text) }} placeholder="" />
+
+                    <Text style={styles.label}>Data de Nascimento</Text>   
+                    <InputBirthDate placeholder={birthDate} valueToSet={setBirthDate} variable={birthDate}  />
+
+                    <Text style={styles.label}>Telefone</Text>
+                    <TextInputMask
+                        type={'cel-phone'}
+                        options={{
+                            maskType: 'BRL',
+                            withDDD: true,
+                            dddMask: '(99)'
+                        }}
+                        value={phone}
+                        onChangeText={text => {
+                            setPhone(text);
+                        }}
+                        style={[styles.input, styles.container]}
+                    />
+
+                    <ButtonPrimary cta="Salvar" callBackFunction={saveProfile} />  
+                </View>
             </View>
-            <View style={{position: 'relative'}}>
-                <Text style={styles.label}>Nome</Text>
-                <TextInput value={name} style={[styles.input, styles.container]} onChangeText={(text) => { setName(text) }} placeholder="" />
-
-                <Text style={styles.label}>Data de Nascimento</Text>   
-                <InputBirthDate placeholder={birthDate} valueToSet={setBirthDate} variable={birthDate}  />
-
-                <Text style={styles.label}>Telefone</Text>
-                <TextInputMask
-                    type={'cel-phone'}
-                    options={{
-                        maskType: 'BRL',
-                        withDDD: true,
-                        dddMask: '(99)'
-                    }}
-                    value={phone}
-                    onChangeText={text => {
-                        setPhone(text);
-                    }}
-                    style={[styles.input, styles.container]}
-                />
-
-                <ButtonPrimary cta="Salvar" callBackFunction={saveProfile} />      
-            </View>
+            <MessageFeedback type={typeMessage} message={message} visible={messageVisible} />    
         </View>
     )
 };

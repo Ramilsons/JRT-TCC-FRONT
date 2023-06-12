@@ -11,6 +11,7 @@ import inputWithIcon from './../../global/styles/inputWithIcon';
 import axios from "axios";
 import { IsLogged } from './../contexts/IsLoggedContext';
 import InputBirthDate from "../components/InputBirthDate";
+import MessageFeedback from "../components/MessageFeedback";
 
 export default function NewMedicament(){
     const [dropdownValueActive, setDropdownValueActive] = useState("1x por dia");
@@ -24,6 +25,10 @@ export default function NewMedicament(){
     const navigation = useNavigation();
 
     const [dropdownList, setDropdownList] = useState(false);
+
+    const [messageVisible, setMessageVisible] = useState(false);
+    const [message, setMessage] = useState('');
+    const [typeMessage, setTypeMessage] = useState('');
 
     useEffect(() => {
         if(dropdownValueActive == '1x por dia'){
@@ -39,6 +44,14 @@ export default function NewMedicament(){
         }
     }, [dropdownValueActive]);
 
+    function errorMessageConfig() {
+        setTypeMessage('error');
+        setMessage('Preencha corretamente os campos');
+        setMessageVisible(true);
+    
+        setTimeout(() => setMessageVisible(false), 4000);   
+    }
+
     function saveMedicament() {
         function formatDate(dateDefault){
             let slicedDate = dateDefault.split('/');
@@ -46,20 +59,32 @@ export default function NewMedicament(){
             return new Date(`${slicedDate[2]}-${slicedDate[1]}-${slicedDate[0]}`); 
         }
 
-        axios.post('https://jrt-medicamentos.onrender.com/medicaments', { 
-            name: nameMedicament, 
-            timeInit: timeInit, 
-            dosage: dosage, 
-            frequency: dropdownValueActiveFormatted,
-            completionDate: formatDate(completationDate),
-            user: userInfos.id
-        }).then(()=> {
-            navigation.navigate('Meus Medicamentos');
-        })
+        try {
+            axios.post('https://jrt-medicamentos.onrender.com/medicaments', { 
+                name: nameMedicament, 
+                timeInit: timeInit, 
+                dosage: dosage, 
+                frequency: dropdownValueActiveFormatted,
+                completionDate: formatDate(completationDate),
+                user: userInfos.id
+            }).then(()=> {
+                setTypeMessage('success');
+                setMessage('Medicamento cadastrado com sucesso. Aguarde!');
+                setMessageVisible(true);
+                setTimeout(() => {
+                    setMessageVisible(false)
+                    navigation.navigate('Meus Medicamentos');
+                }, 3000);
+            }).catch(e =>{
+                errorMessageConfig();
+            });
+        }catch(e) {
+            errorMessageConfig();
+        }
     };
 
     return(
-        <View>
+        <View style={{paddingTop: 50}}>
             <TitlePage title="Novo medicamento" />
     
             <View style={{position: 'relative'}}>
@@ -75,10 +100,6 @@ export default function NewMedicament(){
                 <Text style={styles.label}>Data de finalização</Text>   
                 <InputBirthDate placeholder={"14/04/2024"} valueToSet={setCompletationDate} variable={completationDate}  />
             
-                {/* 
-                    <Text style={styles.label}>Data de finalização</Text>   
-                    <TextInput value={completationDate} style={[styles.input, styles.container]} placeholder="14/04/2023" onChangeText={(text) => { setCompletationDate(text) }} />      
-                */} 
                 <View style={{zIndex: 2, height: 94,}}>
                         <Text style={styles.label}>Frequência</Text>
                         <ScrollView>
@@ -92,6 +113,7 @@ export default function NewMedicament(){
             </View>
             
             <ButtonPrimary cta="Salvar" callBackFunction={saveMedicament} />      
+            <MessageFeedback type={typeMessage} message={message} visible={messageVisible} />
         </View>
     )
 }

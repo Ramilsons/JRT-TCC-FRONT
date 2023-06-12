@@ -6,7 +6,7 @@ import TitlePage from './../components/TitlePage';
 import ButtonPrimary from "./../components/ButtonPrimary";
 import DropdownInput from "./../components/DropdownInput";
 import InputBirthDate from "../components/InputBirthDate";
-
+import MessageFeedback from "../components/MessageFeedback";
 import inputWithIcon from './../../global/styles/inputWithIcon';
 
 import axios from "axios";
@@ -20,6 +20,9 @@ export default function EditMedicament(props){
     const [dosage, setDosage] = useState("");
     const [completationDate, setCompletationDate] = useState("");
     const { userInfos } = useContext(IsLogged);
+    const [messageVisible, setMessageVisible] = useState(false);
+    const [message, setMessage] = useState('');
+    const [typeMessage, setTypeMessage] = useState('');
 
     const navigation = useNavigation();
 
@@ -79,6 +82,14 @@ export default function EditMedicament(props){
         }
     }, [dropdownValueActive])
 
+    function errorMessageConfig() {
+        setTypeMessage('error');
+        setMessage('Preencha corretamente os campos');
+        setMessageVisible(true);
+    
+        setTimeout(() => setMessageVisible(false), 4000);   
+    }
+
     function updateMedicament() {
         function formatDate(dateDefault){
             let slicedDate = dateDefault.split('/');
@@ -94,12 +105,20 @@ export default function EditMedicament(props){
             completionDate: formatDate(completationDate),
             user: userInfos.id
         }).then(()=> {
-            navigation.navigate('Meus Medicamentos');
-        })
+            setTypeMessage('success');
+            setMessage('Dados atualizados com sucesso. Aguarde!');
+            setMessageVisible(true);
+            setTimeout(() => {
+                setMessageVisible(false)
+                navigation.navigate('Meus Medicamentos');
+            }, 3000);        
+        }).catch((e) => {
+            errorMessageConfig();
+        });
     };
     
     return(
-        <View>
+        <View style={{paddingTop: 50}}>
             <TitlePage title="Editar medicamento" />
         
             <View style={{position: 'relative'}}>
@@ -127,6 +146,7 @@ export default function EditMedicament(props){
                 </View>
             </View>
             <ButtonPrimary cta="Salvar" callBackFunction={updateMedicament} />    
+            <MessageFeedback type={typeMessage} message={message} visible={messageVisible} />
         </View>
     )
 }

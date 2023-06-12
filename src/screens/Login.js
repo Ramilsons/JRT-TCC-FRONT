@@ -6,6 +6,7 @@ import InputPassword from '../components/InputPassword';
 import ButtonPrimary from '../components/ButtonPrimary';
 import LinkAuthentication from '../components/LinkAuthentication';
 import DelimiterTop from '../components/DelimiterTop';
+import MessageFeedback from '../components/MessageFeedback';
 
 import { useState, useContext, useEffect } from 'react';
 import { IsLogged } from '../contexts/IsLoggedContext';
@@ -16,6 +17,9 @@ export default function Login(){
     const [cpf, setCpf] = useState('25475559139');
     const [password, setPassword] = useState('123456789');
     const [isLoad, setIsLoad] = useState(false);
+    const [messageVisible, setMessageVisible] = useState(false);
+    const [message, setMessage] = useState('');
+    const [typeMessage, setTypeMessage] = useState('');
 
     const navigation = useNavigation();
 
@@ -28,8 +32,8 @@ export default function Login(){
     const { signIn } = useContext(IsLogged);
 
     function sendData(){
-       signIn(cpf, password);
-       setIsLoad(true);
+        signIn(cpf, password, setMessageVisible, setTypeMessage, setMessage, setIsLoad);
+        setIsLoad(true);
     }
 
     return(
@@ -44,6 +48,7 @@ export default function Login(){
             <InputPassword  variable={password} valueToSet={setPassword} />
             <ButtonPrimary cta="Entrar" callBackFunction={sendData} stateIsLoad={isLoad} />
             <LinkAuthentication customText="Não tem uma conta? Clique aqui." targetScreen="Novo Usuario" />
+            <MessageFeedback type={typeMessage} message={message} visible={messageVisible} />
         </View>
     )
 }

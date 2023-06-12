@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     },
 
     loadGif: {
-        verticalAlign: 'center',
+        textAlignVertical: 'center',
         width: 25,
         height: 25,
         alignSelf: 'center'

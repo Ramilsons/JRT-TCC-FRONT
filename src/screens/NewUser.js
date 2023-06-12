@@ -15,6 +15,8 @@ import InputBirthDate from '../components/InputBirthDate';
 import InputPhone from '../components/InputPhone';
 import InputName from '../components/InputName';
 import ButtonPrimary from '../components/ButtonPrimary';
+import MessageFeedback from '../components/MessageFeedback';
+
 import * as ImagePicker from 'expo-image-picker';
 
 import axios from 'axios';
@@ -36,6 +38,9 @@ export default function NewUser() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [formattedDate, setFormattedDate] = useState([]);
     const [finallyDate, setFinallyDate] = useState([]);
+    const [messageVisible, setMessageVisible] = useState(false);
+    const [message, setMessage] = useState('');
+    const [typeMessage, setTypeMessage] = useState('');
     
     // Image Picker
     const [hasGalleryPermission, setHasGalleryPermission] = useState(null);
@@ -71,8 +76,15 @@ export default function NewUser() {
         }
     };
 
-    async function sendData(){
+    function errorMessageConfig() {
+        setTypeMessage('error');
+        setMessage('Preencha corretamente os campos');
+        setMessageVisible(true);
+    
+        setTimeout(() => setMessageVisible(false), 4000);   
+    }
 
+    async function sendData(){
         if(confirmPassword === password){
             let formData = new FormData();
             formData.append('name', name)
@@ -89,21 +101,26 @@ export default function NewUser() {
                 )
             );
 
-            const result = await axios.post('https://jrt-medicamentos.onrender.com/users', formData, {
-                headers: {
-                    Accept: 'application/json',
-                    "Content-Type": 'multipart/form-data'
+            try {
+                const result = await axios.post('https://jrt-medicamentos.onrender.com/users', formData, {
+                    headers: {
+                        Accept: 'application/json',
+                        "Content-Type": 'multipart/form-data'
+                    }
+                })
+              
+                if(result.data.error){
+                    console.log(formData);
+                    console.log(mime.getType(image));
+                    console.log('Houve um erro ao tentar se registrar. '+e);
+                    console.log(result.data.error);
+                    errorMessageConfig();
+                }else{
+                    signIn(cpf, password);
+                    setIsLoad(true);
                 }
-            })
-          
-            if(result.data.error){
-                console.log(formData);
-                console.log(mime.getType(image));
-                console.log('Houve um erro ao tentar se registrar. '+e);
-                console.log(result.data.error);
-            }else{
-                signIn(cpf, password);
-                setIsLoad(true);
+            } catch(e) {    
+                errorMessageConfig();
             }
         }
     }
@@ -132,6 +149,7 @@ export default function NewUser() {
             </View>
             <ButtonPrimary cta="Criar conta" callBackFunction={sendData} stateIsLoad={isLoad} />
             <LinkAuthentication customText="Já tem uma conta? Clique aqui." targetScreen="Login" />
+            <MessageFeedback type={typeMessage} message={message} visible={messageVisible} />
         </View>
     )
 }

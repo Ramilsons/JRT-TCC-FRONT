@@ -9,16 +9,16 @@ function IsLoggedProvider({children}){
     const [userInfos, setUserInfos] = useState({});
     const navigation = useNavigation();
 
-    function signIn(cpf, password){
+    function signIn(cpf, password, setMessageVisible, setTypeMessage, setMessage, setIsLoad){
         cpf = cpf.replace('-', '');
         cpf = cpf.replace('.', '');
         cpf = cpf.replace('.', '');
     
-       
+        let res;
         if(cpf !== ''){
             axios.get(`https://jrt-medicamentos.onrender.com/users/cpf/${cpf}`)
                 .then(response => {
-                    if(password == response.data[0].password){
+                    if(response.data[0] && password == response.data[0].password){
                         
                         let imagePath = '';
                         if(response.data[0].imagePath){
@@ -36,8 +36,14 @@ function IsLoggedProvider({children}){
                         navigation.navigate("Meus Medicamentos");
                     }else{
                         console.log('CPF ou senha não encontrado');
-                    }
 
+                        setMessageVisible(true);
+                        setTypeMessage('error');
+                        setMessage('CPF ou senha não encontrado');
+                        setIsLoad(false);
+
+                        setTimeout(() => setMessageVisible(false), 4000);
+                    }
                 })
                 .catch(e => {
                     console.log(e);
