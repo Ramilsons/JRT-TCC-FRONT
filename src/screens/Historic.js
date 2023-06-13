@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 20,
         fontWeight: '500',
-        color: globalStyle.greenPrimary,
+        color: '#CCCACA',
         fontFamily: globalStyle.mavenMedium
     }
 })

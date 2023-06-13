@@ -9,15 +9,21 @@ import moment from 'moment';
 export default function MedicamentCard(props){
     const navigation = useNavigation();
 
-    
-    
-   
+    const formatDateToAmerican = (dateString) =>{
 
+        const databaseDateFormat = "YYYY-MM-DD";
+        const americanDateFormat = "MM/DD/YYYY";
+        const formattedDate = moment(dateString, databaseDateFormat).format(americanDateFormat);
+        return formattedDate;
+    }
+    
+    const databaseDate = "2023-06-05";
+    const americanDate = formatDateToAmerican(databaseDate);
     return(
         <View style={styles.container}>
             <View style={styles.containersInfos}>
                 <Text style={styles.name}>{props.name}</Text>
-                <Text style={styles.dateinsert}>{props.dateInsert}</Text>
+                <Text style={styles.dateinsert}>{props.dateInsert = americanDate}</Text>
             </View>
             <View style={styles.containersInfos}>
                 <Text style={styles.dosage}>{props.dosage}</Text>
