@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'column',
-        height: 90,
+        height: 90
     },
 
     containersInfos: {

@@ -73,8 +73,9 @@ export default function Profile(){
     useEffect(() => {
         if(image.length > 0){
             try {
-                editRequest('upload-image');
-                reloadData();
+                editRequest('upload-image').then(() => {
+                    reloadData();
+                })
             } catch (e){
                 throw e;
             }
