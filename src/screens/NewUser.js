@@ -90,16 +90,18 @@ export default function NewUser() {
             formData.append('name', name)
             formData.append('password', password)
             formData.append('cpf', unmaskCpf(cpf))
-            formData.append('birthDate', finallyDate)
+            // formData.append('birthDate', finallyDate)
             formData.append('phone', unmaskPhone(phone))
-            formData.append('fileData', JSON.parse(
-                        JSON.stringify({
-                        uri : image,
-                        type: mime.getType(image),
-                        name: 'profile'
-                    })
-                )
-            );
+            if(image.length > 0){
+                formData.append('fileData', JSON.parse(
+                            JSON.stringify({
+                            uri : image,
+                            type: mime.getType(image),
+                            name: 'profile'
+                        })
+                    )
+                );
+            }
 
             try {
                 const result = await axios.post('https://jrt-medicamentos.onrender.com/users', formData, {

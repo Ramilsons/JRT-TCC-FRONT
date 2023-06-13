@@ -40,7 +40,7 @@ export default function EditMedicament(props){
 
     useEffect(() => {   
         navigation.addListener('focus', () => {
-            axios.get(`https://jrt-medicamentos.onrender.com/medicament/${navigation.getState().routes[5].params.medicamentId}`)
+            axios.get(`https://jrt-medicamentos.onrender.com/medicament/${navigation.getState().routes[6].params.medicamentId}`)
                 .then((response)=> {
                     let data = response.data;
                     setNameMedicament(data.name);
@@ -97,7 +97,9 @@ export default function EditMedicament(props){
             return new Date(`${slicedDate[2]}-${slicedDate[1]}-${slicedDate[0]}`); 
         }
 
-        axios.put(`https://jrt-medicamentos.onrender.com/medicaments/${navigation.getState().routes[5].params.medicamentId}`, { 
+        console.log(props)
+
+        axios.put(`https://jrt-medicamentos.onrender.com/medicaments/${navigation.getState().routes[6].params.medicamentId}`, { 
             name: nameMedicament, 
             timeInit: timeInit, 
             dosage: dosage, 

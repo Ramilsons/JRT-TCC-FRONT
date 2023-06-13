@@ -9,7 +9,7 @@ export default function MessageFeedback(props){
 
     return(
         <View style={[styles.container, props.visible ? {opacity: 1} : {opacity: 0}]}>
-           
+           <Text style={[styles.text, props.type == 'success' ? styles.success : styles.error, {width: widthScreen}]}>{props.message}</Text>
         </View>
     )
 }

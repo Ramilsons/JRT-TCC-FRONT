@@ -105,23 +105,16 @@ const Calendar = () => {
             modelDayPress = `0${dayPress}`;
           }
 
-          if(new Date(`2023-${monthInitialize}-${dayInitialize}`) <= new Date(`2023-${modelMonthPress}-${modelDayPress}`)){
+          if(new Date(`2023-${monthInitialize}-${dayInitialize-1}`) <= new Date(`2023-${modelMonthPress}-${modelDayPress}`)){
             if(new Date(`2023-${monthCompletation}-${dayCompletation+1}`) >= new Date(`2023-${modelMonthPress}-${modelDayPress}`)){
-              console.log('**************')
-              console.log('a data de finalização é maior que a data selecionada');
-              console.log(item);
               medicaments.push(item);
-              console.log('************')
             }else{
               console.log('--------------------')
               console.log('caiu no segundo')
-              console.log(new Date(`2023-${monthCompletation}-${dayCompletation}`));
-              console.log(new Date(`2023-${modelMonthPress}-${modelDayPress}`));
             }
           }
         })
 
-        console.log(medicaments)
         setAllMedicamentsActiveByDate(medicaments);
       })
       .catch((e) => {
@@ -137,8 +130,6 @@ const Calendar = () => {
   const renderDay = ({ item }) => {
     const { dayOfMonth, dayOfWeek, isToday } = item;
     const dayOfMonthStyle = dayPress == dayOfMonth ? styles.today : styles.dayOfMonth;
-
-    console.log(dayPress);
 
     return (
       <TouchableOpacity onPress={() => {setDayPress(dayOfMonth)}} style={[styles.circle, dayPress == dayOfMonth ? {backgroundColor: '#ED4A88'} : null]}>

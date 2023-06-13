@@ -110,9 +110,9 @@ export default function App() {
               }}
             />
             <Drawer.Screen name="Home" component={HomeConfigStyle} />
-            <Drawer.Screen name="Histórico" component={HistoricConfigStyle} />
             <Drawer.Screen name="Meus Medicamentos" component={MyMedicamentsConfigStyle} />
             <Drawer.Screen name="Novo Medicamento" component={NewMedicamentConfigStyle} />
+            <Drawer.Screen name="Histórico" component={HistoricConfigStyle} />
             <Drawer.Screen name="Perfil" component={ProfileConfigStyle} />
             <Drawer.Screen name="Editar Medicamento" component={EditMedicamentConfigStyle} options={({ route, navigation }) => {
                 return {
