@@ -4,19 +4,25 @@ import EditMedicamentStyle from "../../global/styles/inputWithIcon";
 
 import { useEffect } from 'react';
 import { useNavigation } from "@react-navigation/native";
+import moment from 'moment';
 
 export default function MedicamentCard(props){
     const navigation = useNavigation();
 
+    
+    
+   
 
     return(
         <View style={styles.container}>
             <View style={styles.containersInfos}>
                 <Text style={styles.name}>{props.name}</Text>
+                <Text style={styles.dateinsert}>{props.dateInsert}</Text>
             </View>
             <View style={styles.containersInfos}>
                 <Text style={styles.dosage}>{props.dosage}</Text>
                 <Text style={styles.time}>{props.time}</Text>
+                
             </View>
         </View>
     )
@@ -66,5 +72,11 @@ const styles = StyleSheet.create({
         color: '#9F9F9F',
         fontWeight: '300',
         fontFamily: globalStyle.mavenRegular
+    },
+
+    dateinsert:{
+        fontSize: 13,
+        color: '#FF1493',
+        fontFamily: globalStyle.mavenBold
     }
 })

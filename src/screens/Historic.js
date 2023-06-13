@@ -47,7 +47,7 @@ export default function MyMedicaments(){
                 {
                     allMedicamentsActive.map(function(eachMedicament){
                         return(
-                            <MedicamentCardHistoric key={eachMedicament._id} name={eachMedicament.name} id={eachMedicament._id} dosage={eachMedicament.dosage} time={eachMedicament.allTimes[0]} />
+                            <MedicamentCardHistoric key={eachMedicament._id} name={eachMedicament.name} id={eachMedicament._id} dosage={eachMedicament.dosage} time={eachMedicament.allTimes[0]} dateInsert={eachMedicament.dateInsert} />
                         )
                     })
                 }
