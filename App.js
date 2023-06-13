@@ -13,6 +13,7 @@ import Profile from './src/screens/Profile';
 import EditMedicament from './src/screens/EditMedicaments';
 import Tutorial from './src/screens/Tutorial';
 import Home from './src/screens/home';
+import Historic from './src/screens/Historic'
 
 import CustomerDrawer from './src/components/CustomDrawer';
 import Header from './src/components/Header';
@@ -109,6 +110,7 @@ export default function App() {
               }}
             />
             <Drawer.Screen name="Home" component={HomeConfigStyle} />
+            <Drawer.Screen name="Histórico" component={HistoricConfigStyle} />
             <Drawer.Screen name="Meus Medicamentos" component={MyMedicamentsConfigStyle} />
             <Drawer.Screen name="Novo Medicamento" component={NewMedicamentConfigStyle} />
             <Drawer.Screen name="Perfil" component={ProfileConfigStyle} />
@@ -145,6 +147,18 @@ function HomeConfigStyle({ navigation }){
     </SafeAreaView>
   )
 }
+
+function HistoricConfigStyle({ navigation }){
+  return(
+    <SafeAreaView style={{flex: 1}}>
+      <Header functionOpen={navigation} />
+      <View style={styles.container}> 
+        <Historic/>
+      </View>
+    </SafeAreaView>
+  )
+}
+
 
 function MyMedicamentsConfigStyle({ navigation }){
   return(
