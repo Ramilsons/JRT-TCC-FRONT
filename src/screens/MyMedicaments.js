@@ -1,17 +1,16 @@
-import { Text, View, StyleSheet, Linking } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 import React, {useState, useEffect, useContext} from 'react';
 
 import TitlePage from '../components/TitlePage';
 import MedicamentCard from '../components/MedicamentCard';
 import AddButton from '../components/AddButton';
 import LoadingCustom from '../components/LoadingCustom';
-import { useNavigation } from "@react-navigation/native";
+import NoMedicament from '../components/NoMedicaments';
 
 import globalStyle from './../../global/styles/index';
-
-import axios from 'axios';
-
 import { IsLogged } from './../contexts/IsLoggedContext';
+import axios from 'axios';
 
 export default function MyMedicaments(){
     const { userInfos } = useContext(IsLogged);
@@ -55,11 +54,7 @@ export default function MyMedicaments(){
         )
     }else{
         return(
-            <View style={styles.wrapper}>
-                <Text style={styles.text}>Você não possui nenhum medicamento ativo.</Text>
-                <Text style={styles.text}>Cadastre um agora mesmo!</Text>
-                <AddButton styleCustom={styles.button} cta="+" linkRedirect="Novo Medicamento" />
-            </View>
+            <NoMedicament />
         )
     }
 };
@@ -69,18 +64,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
         width: globalStyle.maxWidth
-    },
-
-    wrapper: {
-        maxWidth: globalStyle.maxWidth,
-    },
-
-    text: {
-        fontSize: 18,
-        textAlign: 'center',
-        marginBottom: 20,
-        fontWeight: '500',
-        color: globalStyle.greenPrimary,
-        fontFamily: globalStyle.mavenMedium
     }
 })

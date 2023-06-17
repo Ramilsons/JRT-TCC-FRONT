@@ -50,9 +50,7 @@ const Calendar = () => {
   const { userInfos } = useContext(IsLogged);
   const [allMedicamentsActiveByDate, setAllMedicamentsActiveByDate] = useState([]);
   const [welcomeMessage, setWelcomeMessage] = useState('');
-
   const navigation = useNavigation();
-
 
   useEffect(function(){
     let actualHours = new Date().getHours();
@@ -66,73 +64,75 @@ const Calendar = () => {
   }, [userInfos]);
 
   useEffect(function(){
-      axios.get(`https://jrt-medicamentos.onrender.com/medicaments/historic/${userInfos.id}`)
-      .then((response) => {
-        let medicaments = [];
-        response.data.forEach((item, index) => {
-          let completationDateFormatted = item.completionDate.replace('00:00:00.000+00:00', '03:00:00.000+00:00');
-          let dayCompletation = new Date(completationDateFormatted).getDate();
-          let monthCompletation = new Date(completationDateFormatted).getMonth() + 1;
+    navigation.addListener('focus', () => {
+      getMedicamentByDayPress();
+    })
+  }, [navigation]);
 
-          let initializeDateFormatted = item.dateInsert;
-          let dayInitialize = new Date(initializeDateFormatted).getDate() + 1;
-          let monthInitialize = new Date(initializeDateFormatted).getMonth() + 1;
-
-          if(monthInitialize < 10){
-            monthInitialize = `0${monthInitialize}`;
-          }
-
-          if(dayInitialize < 10){
-            dayInitialize = `0${dayInitialize}`;
-          }
-
-          if(monthCompletation < 10){
-            monthCompletation = `0${monthCompletation}`;
-          }
-
-          if(dayCompletation < 10){
-            dayCompletation = `0${dayCompletation}`;
-          }
-
-          let modelMonthPress = dayPress;
-          let modelDayPress = dayPress;
-
-          if(monthPress < 10){
-            modelMonthPress = `0${monthPress}`;
-          }
-
-          if(dayPress < 10){
-            modelDayPress = `0${dayPress}`;
-          }
-
-          if(new Date(`2023-${monthInitialize}-${dayInitialize-1}`) <= new Date(`2023-${modelMonthPress}-${modelDayPress}`)){
-            if(new Date(`2023-${monthCompletation}-${dayCompletation+1}`) >= new Date(`2023-${modelMonthPress}-${modelDayPress}`)){
-              medicaments.push(item);
-            }else{
-              console.log('--------------------')
-              console.log('caiu no segundo')
-            }
-          }
-        })
-
-        setAllMedicamentsActiveByDate(medicaments);
-      })
-      .catch((e) => {
-          console.log('houve um erro 1: '+e);
-      })
+  useEffect(function(){
+    getMedicamentByDayPress();
   }, [dayPress]);
 
+  function getMedicamentByDayPress() {
+    axios.get(`https://jrt-medicamentos.onrender.com/medicaments/historic/${userInfos.id}`)
+    .then((response) => {
+      let medicaments = [];
+      response.data.forEach((item, index) => {
+        let completationDateFormatted = item.completionDate.replace('00:00:00.000+00:00', '03:00:00.000+00:00');
+        let dayCompletation = new Date(completationDateFormatted).getDate();
+        let monthCompletation = new Date(completationDateFormatted).getMonth() + 1;
 
-  useEffect(() => {
-    console.log(allMedicamentsActiveByDate);
-  }, [setAllMedicamentsActiveByDate]);
+        let initializeDateFormatted = item.dateInsert;
+        let dayInitialize = new Date(initializeDateFormatted).getDate() + 1;
+        let monthInitialize = new Date(initializeDateFormatted).getMonth() + 1;
+
+        if(monthInitialize < 10){
+          monthInitialize = `0${monthInitialize}`;
+        }
+
+        if(dayInitialize < 10){
+          dayInitialize = `0${dayInitialize}`;
+        }
+
+        if(monthCompletation < 10){
+          monthCompletation = `0${monthCompletation}`;
+        }
+
+        if(dayCompletation < 10){
+          dayCompletation = `0${dayCompletation}`;
+        }
+
+        let modelMonthPress = dayPress;
+        let modelDayPress = dayPress;
+
+        if(monthPress < 10){
+          modelMonthPress = `0${monthPress}`;
+        }
+
+        if(dayPress < 10){
+          modelDayPress = `0${dayPress}`;
+        }
+
+        if(new Date(`2023-${monthInitialize}-${dayInitialize-1}`) <= new Date(`2023-${modelMonthPress}-${modelDayPress}`)){
+          if(new Date(`2023-${monthCompletation}-${dayCompletation+1}`) >= new Date(`2023-${modelMonthPress}-${modelDayPress}`)){
+            medicaments.push(item);
+          }
+        }
+      })
+
+      setAllMedicamentsActiveByDate(medicaments);
+    })
+    .catch((e) => {
+        console.log('houve um erro 1: '+e);
+    })
+  }
 
   const renderDay = ({ item }) => {
     const { dayOfMonth, dayOfWeek, isToday } = item;
     const dayOfMonthStyle = dayPress == dayOfMonth ? styles.today : styles.dayOfMonth;
 
     return (
-      <TouchableOpacity onPress={() => {setDayPress(dayOfMonth)}} style={[styles.circle, dayPress == dayOfMonth ? {backgroundColor: '#ED4A88'} : null]}>
+      <TouchableOpacity  onPress={() => {setDayPress(dayOfMonth)}} style={[styles.circle, dayPress == dayOfMonth ? {backgroundColor: '#ED4A88'} : null]}>
         <View>
           <Text style={[styles.dayOfWeek, dayPress == dayOfMonth ? styles.selectedDayOfWeek : null]}>{dayOfWeek[0]}</Text>
           <View>
@@ -152,7 +152,7 @@ const Calendar = () => {
       const date = new Date(year, month - 1, i);
       const dayOfWeek = getWeekdays()[date.getDay()];
       const isToday = isCurrentDate(year, month, i);
-      days.push({ dayOfMonth: i, dayOfWeek, isToday });
+      days.push({ dayOfMonth: i, dayOfWeek, isToday, key: i});
     }
 
     return days;
@@ -179,12 +179,22 @@ const Calendar = () => {
           renderItem={renderDay}
           keyExtractor={(item, index) => index.toString()}
           style={{maxHeight: 100}}
+          getItemLayout={(data, index) => (
+            {length: 50, offset: 50 * (index - 1), index}
+          )}
+          initialScrollIndex={dayPress}
         />
         <View style={styles.containerMedicamentCard}>
           {
-            allMedicamentsActiveByDate.map((eachMedicament, index) => {
-              return <MedicamentCard key={eachMedicament._id} name={eachMedicament.name} id={index} dosage={eachMedicament.dosage} time={eachMedicament.allTimes[0]} />
-            })
+            allMedicamentsActiveByDate.length != 0 ? (
+              allMedicamentsActiveByDate.map((eachMedicament, index) => {
+                return <MedicamentCard key={eachMedicament._id} name={eachMedicament.name} id={index} dosage={eachMedicament.dosage} time={eachMedicament.allTimes[0]} />
+              })
+            ) : (
+              <View style={{ marginTop: 120 }}>
+                <Text style={styles.text}>Nenhum medicamento para o dia selecionado.</Text>
+              </View>
+            )
           }
         </View>
       </View>
@@ -270,6 +280,15 @@ const styles = StyleSheet.create({
     color: '#CCCACA',
     textAlign: 'center'
   },
+
+  text: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginBottom: 20,
+    fontWeight: '500',
+    color: globalStyle.greenPrimary,
+    fontFamily: globalStyle.mavenMedium,
+  }
 });
 
 export default Calendar;

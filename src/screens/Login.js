@@ -11,7 +11,7 @@ import MessageFeedback from '../components/MessageFeedback';
 import { useState, useContext, useEffect } from 'react';
 import { IsLogged } from '../contexts/IsLoggedContext';
 
-import { Link, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Login(){
     const [cpf, setCpf] = useState('25475559139');

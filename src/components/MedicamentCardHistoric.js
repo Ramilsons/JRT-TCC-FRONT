@@ -1,34 +1,25 @@
-import { View, Pressable, Text, StyleSheet } from 'react-native';
-import globalStyle from './../../global/styles/index.js';
-import EditMedicamentStyle from "../../global/styles/inputWithIcon";
+import { View, Text, StyleSheet } from 'react-native';
+import { useState, useEffect } from 'react';
 
-import { useEffect } from 'react';
-import { useNavigation } from "@react-navigation/native";
-import moment from 'moment';
+import globalStyle from './../../global/styles/index.js';
 
 export default function MedicamentCard(props){
-    const navigation = useNavigation();
+    const [dateFormatted, setDateFormatted] = useState();
 
-    const formatDateToAmerican = (dateString) =>{
+    useEffect(() => {
+        let dateSplit = props.dateInsert.split('-');
+        setDateFormatted(`${dateSplit[2].split('T')[0]}/${dateSplit[1]}/${dateSplit[0]}`)
+    }, []);
 
-        const databaseDateFormat = "YYYY-MM-DD";
-        const americanDateFormat = "MM/DD/YYYY";
-        const formattedDate = moment(dateString, databaseDateFormat).format(americanDateFormat);
-        return formattedDate;
-    }
-    
-    const databaseDate = "2023-06-05";
-    const americanDate = formatDateToAmerican(databaseDate);
     return(
         <View style={styles.container}>
             <View style={styles.containersInfos}>
                 <Text style={styles.name}>{props.name}</Text>
-                <Text style={styles.dateinsert}>{props.dateInsert = americanDate}</Text>
+                <Text style={styles.dateInsertStyle}>{dateFormatted}</Text>
             </View>
             <View style={styles.containersInfos}>
                 <Text style={styles.dosage}>{props.dosage}</Text>
                 <Text style={styles.time}>{props.time}</Text>
-                
             </View>
         </View>
     )
@@ -80,7 +71,7 @@ const styles = StyleSheet.create({
         fontFamily: globalStyle.mavenRegular
     },
 
-    dateinsert:{
+    dateInsertStyle:{
         fontSize: 13,
         color: '#FF1493',
         fontFamily: globalStyle.mavenBold

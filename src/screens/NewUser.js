@@ -36,8 +36,12 @@ export default function NewUser() {
     const [birthDate, setBirthDate] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [formattedDate, setFormattedDate] = useState([]);
-    const [finallyDate, setFinallyDate] = useState([]);
+    //const [formattedDate, setFormattedDate] = useState([]);
+    //const [finallyDate, setFinallyDate] = useState([]);
+    const [dayOfBirth, setDayOfBirth] = useState(0);
+    const [monthOfBirth, seMonthOfBirth] = useState(0);
+    const [yearOfBirth, setYearOfBirth] = useState(0);
+
     const [messageVisible, setMessageVisible] = useState(false);
     const [message, setMessage] = useState('');
     const [typeMessage, setTypeMessage] = useState('');
@@ -53,6 +57,7 @@ export default function NewUser() {
         })();
     }, []);
 
+    /*
     useEffect(() => {
         let dateSeparate = birthDate.split("/");
         setFormattedDate(dateSeparate);
@@ -61,7 +66,7 @@ export default function NewUser() {
     useEffect(() => {
         let finallyDateOrganize = new Date(formattedDate[2], formattedDate[1]-1, formattedDate[0], 0, 0, 0);
         setFinallyDate(finallyDateOrganize);
-    }, [formattedDate])
+    }, [formattedDate])*/
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -75,6 +80,16 @@ export default function NewUser() {
             setImage(result.assets[0].uri);
         }
     };
+
+    useEffect(() => {      
+        let slicedDate = birthDate.split('/');
+
+        setDayOfBirth(slicedDate[0]);
+        seMonthOfBirth(slicedDate[1]);
+        setYearOfBirth(slicedDate[2]);
+
+    }, [birthDate])
+
 
     function errorMessageConfig() {
         setTypeMessage('error');
@@ -90,7 +105,8 @@ export default function NewUser() {
             formData.append('name', name)
             formData.append('password', password)
             formData.append('cpf', unmaskCpf(cpf))
-            // formData.append('birthDate', finallyDate)
+            //formData.append('birthDate', finallyDate)
+            formData.append('birthDate', `${yearOfBirth}-${monthOfBirth}-${dayOfBirth}T00:00:00.000+00:00`)
             formData.append('phone', unmaskPhone(phone))
             if(image.length > 0){
                 formData.append('fileData', JSON.parse(
